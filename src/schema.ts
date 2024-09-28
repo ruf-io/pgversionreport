@@ -25,7 +25,6 @@ const PerformanceImprovement = z.object({
 });
 
 export const MainSchema = z.object({
-    versionDates: z.record(z.string()),
     bugs: z.array(Bug),
     features: z.array(Feature),
     performanceImprovements: z.array(PerformanceImprovement),

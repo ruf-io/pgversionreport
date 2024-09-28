@@ -1,12 +1,12 @@
-import type data from "@/data/pg_release_data";
+import data from "@/data/pg_release_data";
 import Panel from "../atoms/Panel";
 import Bug from "../atoms/Bug";
 import Collapsable from "../atoms/Collapsable";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type BugFixes = PromiseResulver<typeof data>["bugs"];
+type Bugs = PromiseResulver<typeof data>["bugs"];
 
-export default function BugFixes({ bugs }: { bugs: BugFixes }) {
+export default function BugFixes({ bugs }: { bugs: Bugs }) {
     // Filter out CVE's and not CVE's. We want to emphasize CVE's.
     const cves = bugs.filter((bug) => bug.cve);
     const notCves = bugs.filter((bug) => !bug.cve);

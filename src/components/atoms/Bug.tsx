@@ -1,9 +1,10 @@
 import type data from "@/data/pg_release_data";
+import { getPgVersionDate } from "@/utils/postgresDates";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type BugObject = PromiseResulver<typeof data>["bugs"][0];
+type Bug = PromiseResulver<typeof data>["bugs"][0];
 
-export default function Bug({ bug }: { bug: BugObject }) {
+export default function Bug({ bug }: { bug: Bug }) {
     let contributor: React.ReactNode = "";
     if (bug.contributor) {
         contributor = (
@@ -12,6 +13,9 @@ export default function Bug({ bug }: { bug: BugObject }) {
             </span>
         );
     }
+
+    const date = getPgVersionDate(bug.fixedIn);
+    const fixed = `Fixed on ${date.toLocaleDateString()}`;
 
     return (
         <div className="border-2 border-code-red-1 p-2 text-center max-w-64">
@@ -24,7 +28,7 @@ export default function Bug({ bug }: { bug: BugObject }) {
                     </h3>
                 )
             }
-            <h4 className="font-title text-lg select-all mb-2">{bug.title}</h4>
+            <h4 className="font-title text-lg select-all mb-2">{bug.title} ({fixed})</h4>
             <p className="select-none">{bug.description}{contributor}</p>
         </div>
     );
