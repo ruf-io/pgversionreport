@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Parser from "./molecules/Parser";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function MainView() {
     // Defines the components text state.
