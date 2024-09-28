@@ -5,7 +5,7 @@ type Improvement = PromiseResulver<typeof data>["performanceImprovements"][0];
 
 export default function Improvement({ improvement }: { improvement: Improvement }) {
     let contributors: React.ReactNode = "";
-    if (improvement.contributors) {
+    if (improvement.contributors.length > 0) {
         contributors = (
             <>
                 ,{" "}<span className="font-bold">

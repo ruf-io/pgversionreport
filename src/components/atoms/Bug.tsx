@@ -6,7 +6,7 @@ type Bug = PromiseResulver<typeof data>["bugs"][0];
 
 export default function Bug({ bug }: { bug: Bug }) {
     let contributors: React.ReactNode = "";
-    if (bug.contributors) {
+    if (bug.contributors.length > 0) {
         contributors = (
             <span className="font-bold">
                 {" "}(contributed by {bug.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))}
