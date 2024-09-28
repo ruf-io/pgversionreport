@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Parser from "./molecules/Parser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MainView() {
     // Defines the components text state.
@@ -24,7 +26,7 @@ function MainView() {
     return (
         <>
             <textarea
-                className="border-2 border-gray-4 placeholder:text-black dark:placeholder:text-inherit dark:border-gray-2 p-2 w-full my-2 dark:bg-black dark:text-white"
+                className="border-2 border-gray-4 placeholder:text-black dark:placeholder:text-inherit dark:border-gray-2 p-2 w-full mt-2 dark:bg-black dark:text-white"
                 value={text}
                 onChange={(e) => {
                     setText(e.target.value);
@@ -32,6 +34,23 @@ function MainView() {
                 }}
                 placeholder='Run "SELECT version()" on your database and paste the result here...'
             />
+            <ToastContainer />
+            {
+                text && (
+                    <button
+                        className="font-title mb-2 text-code-blue-1 dark:text-code-blue-2 hover:underline"
+                        onClick={() => {
+                            navigator.clipboard.writeText(window.location.href);
+                            toast("Link copied to clipboard!", {
+                                type: "success",
+                                theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+                            });
+                        }}
+                    >
+                        Share Result
+                    </button>
+                )
+            }
             <Parser text={text} />
         </>
     );
