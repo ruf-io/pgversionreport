@@ -1,6 +1,7 @@
 import { useId, useState } from "react";
 import type data from "@/data/pg_release_data";
 import Panel from "../atoms/Panel";
+import Improvement from "../atoms/Improvement";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type PerformanceImprovements = PromiseResulver<typeof data>["performanceImprovements"];
@@ -24,19 +25,13 @@ export default function PerformanceImprovements(
                 className="list-disc list-inside"
             >
                 {
-                    significant.map((improvement) => (
-                        <li key={improvement.title}>
-                            <span className="font-bold">{improvement.title}</span>:
-                            {" "}{improvement.description} (added in {improvement.sinceVersion})
-                        </li>
+                    significant.map((improvement, i) => (
+                        <Improvement key={i} improvement={improvement} />
                     ))
                 }
                 {
-                    !collapsed || significant.length === 0 && insignificant.map((improvement) => (
-                        <li key={improvement.title}>
-                            <span className="font-bold">{improvement.title}</span>:
-                            {" "}{improvement.description} (added in {improvement.sinceVersion})
-                        </li>
+                    !collapsed || significant.length === 0 && insignificant.map((improvement, i) => (
+                        <Improvement key={i} improvement={improvement} />
                     ))
                 }
             </ul>
