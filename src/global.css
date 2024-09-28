@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "ESBuild";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url("./fonts/ESBuild-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-weight: 300, 400, 500, 600, 700;
+    font-display: swap;
+    src: url("./fonts/Inter-Regular.ttf") format("truetype");
+}
