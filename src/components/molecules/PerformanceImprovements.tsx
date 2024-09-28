@@ -32,7 +32,7 @@ export default function PerformanceImprovements(
                     ))
                 }
                 {
-                    !collapsed && insignificant.map((improvement) => (
+                    !collapsed || significant.length === 0 && insignificant.map((improvement) => (
                         <li key={improvement.title}>
                             <span className="font-bold">{improvement.title}</span>:
                             {" "}{improvement.description} (added in {improvement.sinceVersion})
@@ -41,14 +41,18 @@ export default function PerformanceImprovements(
                 }
             </ul>
 
-            <button
-                className="text-sm text-code-blue-1 dark:text-code-blue-2 hover:underline"
-                onClick={() => setCollapsed((prev) => !prev)}
-                aria-expanded={!collapsed}
-                aria-controls={id}
-            >
-                {collapsed ? "Show all performance improvements..." : "Hide less significant performance improvements..."}
-            </button>
+            {
+                significant.length !== 0 && insignificant.length !== 0 && (
+                    <button
+                        className="text-sm text-code-blue-1 dark:text-code-blue-2 hover:underline"
+                        onClick={() => setCollapsed((prev) => !prev)}
+                        aria-expanded={!collapsed}
+                        aria-controls={id}
+                    >
+                        {collapsed ? "Show all performance improvements..." : "Hide less significant performance improvements..."}
+                    </button>
+                )
+            }
         </Panel>
     );
 }
