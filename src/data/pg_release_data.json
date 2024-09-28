@@ -1,5 +1,18 @@
 {
-    "bugs": [],
+    "bugs": [
+        {
+            "cve": "CVE-2021-32027",
+            "title": "title",
+            "description": "description",
+            "fixedIn": "14.0"
+        },
+        {
+            "cve": null,
+            "title": "title2",
+            "description": "description",
+            "fixedIn": "14.0"
+        }
+    ],
     "features": [],
     "performanceImprovements": []
 }
