@@ -14,5 +14,18 @@
         }
     ],
     "features": [],
-    "performanceImprovements": []
+    "performanceImprovements": [
+        {
+            "title": "woah",
+            "description": "so fast",
+            "sinceVersion": "14.1",
+            "significant": true
+        },
+        {
+            "title": "woah2",
+            "description": "so but not as so fast",
+            "sinceVersion": "14.1",
+            "significant": false
+        }
+    ]
 }
