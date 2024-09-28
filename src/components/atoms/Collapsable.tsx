@@ -13,7 +13,7 @@ export default function Collapsable({ expandText, collapseText, initialValues, c
 
     return (
         <div className="font-title select-none p-2 my-2">
-            <div className="flex space-x-2 mb-4" id={id}>
+            <div className="flex flex-wrap space-y-2 space-x-2 mb-4" id={id}>
                 {initialValues}
                 {isCollapsed || collapsedValues}
             </div>

@@ -15,7 +15,7 @@ export default function BugFixes({ bugs }: { bugs: BugFixes }) {
     if (!cves.length) {
         return (
             <Panel title="Bug Fixes" description="Here are the bug fixes that are not in your Postgres version.">
-                <div className="flex space-x-2 mb-4">
+                <div className="flex flex-wrap space-y-2 space-x-2 mb-4">
                     {notCves.map((bug, i) => (
                         <Bug key={i} bug={bug} />
                     ))}
@@ -28,7 +28,7 @@ export default function BugFixes({ bugs }: { bugs: BugFixes }) {
     if (!notCves.length) {
         return (
             <Panel title="CVE's" description="Here are the vulnerabilities in your Postgres version.">
-                <div className="flex space-x-2 mb-4">
+                <div className="flex flex-wrap space-y-2 space-x-2 mb-4">
                     {cves.map((bug, i) => (
                         <Bug key={i} bug={bug} />
                     ))}

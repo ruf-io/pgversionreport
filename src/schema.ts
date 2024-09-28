@@ -12,6 +12,7 @@ const Feature = z.object({
     title: z.string(),
     description: z.string(),
     sinceVersion: z.string(),
+    significant: z.boolean(),
 });
 
 const PerformanceImprovement = z.object({
