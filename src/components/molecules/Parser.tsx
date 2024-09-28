@@ -19,16 +19,19 @@ class Semver {
         const split = version.split(".");
         try {
             this.major = parseInt(split[0]);
+            if (isNaN(this.major)) throw 1;
         } catch {
             throw new Error("Invalid version");
         }
         try {
             this.minor = parseInt(split[1]);
+            if (isNaN(this.minor)) this.minor = 0;
         } catch {
             this.minor = 0;
         }
         try {
             this.patch = parseInt(split[2]);
+            if (isNaN(this.patch)) this.patch = 0;
         } catch {
             this.patch = 0;
         }
