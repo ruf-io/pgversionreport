@@ -5,11 +5,11 @@ type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type Bug = PromiseResulver<typeof data>["bugs"][0];
 
 export default function Bug({ bug }: { bug: Bug }) {
-    let contributor: React.ReactNode = "";
-    if (bug.contributor) {
-        contributor = (
+    let contributors: React.ReactNode = "";
+    if (bug.contributors) {
+        contributors = (
             <span className="font-bold">
-                {" "}(contributed by {bug.contributor})
+                {" "}(contributed by {bug.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))}
             </span>
         );
     }
@@ -29,7 +29,7 @@ export default function Bug({ bug }: { bug: Bug }) {
                 )
             }
             <h4 className="font-title text-lg select-all mb-2">{bug.title} ({fixed})</h4>
-            <p className="select-none">{bug.description}{contributor}</p>
+            <p className="select-none">{bug.description}{contributors}</p>
         </div>
     );
 }

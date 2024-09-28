@@ -4,12 +4,12 @@ type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type Improvement = PromiseResulver<typeof data>["performanceImprovements"][0];
 
 export default function Improvement({ improvement }: { improvement: Improvement }) {
-    let contributor: React.ReactNode = "";
-    if (improvement.contributor) {
-        contributor = (
+    let contributors: React.ReactNode = "";
+    if (improvement.contributors) {
+        contributors = (
             <>
                 ,{" "}<span className="font-bold">
-                    contributed by {improvement.contributor}
+                contributed by {improvement.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))}
                 </span>
             </>
         );
@@ -18,7 +18,7 @@ export default function Improvement({ improvement }: { improvement: Improvement 
     return (
         <li>
             <span className="font-bold">{improvement.title}</span>:
-            {" "}{improvement.description} (added in {improvement.sinceVersion}{contributor})
+            {" "}{improvement.description} (added in {improvement.sinceVersion}{contributors})
         </li>
     );
 }
