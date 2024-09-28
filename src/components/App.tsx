@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Parser from "./molecules/Parser";
 
-function Features() {
+function MainView() {
     // Defines the components text state.
     const [text, setText] = useState("");
 
@@ -47,7 +47,7 @@ export default function App() {
                 Check any security issues or missing features in your Postgres instance.{" "}
                 <a href="https://neon.tech" className="hover:underline">Neon</a> allows you to easily be on the latest version of Postgres.
             </h2>
-            <Features />
+            <MainView />
         </div>
     );
 }

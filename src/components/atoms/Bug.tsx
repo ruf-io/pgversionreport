@@ -5,7 +5,7 @@ type BugObject = PromiseResulver<typeof data>["bugs"][0];
 
 export default function Bug({ bug }: { bug: BugObject }) {
     return (
-        <div className="border-2 border-code-red-1 p-2 text-center">
+        <div className="border-2 border-code-red-1 p-2 text-center max-w-64">
             {
                 bug.cve && (
                     <h3 className="font-title text-xl select-all mb-2">

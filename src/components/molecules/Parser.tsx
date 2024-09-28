@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Alert from "../atoms/Alert";
 import BugFixes from "./BugFixes";
+import Features from "./Features";
 import data from "@/data/pg_release_data";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
@@ -139,6 +140,7 @@ export default function Parser({ text }: { text: string }) {
     return (
         <>
             {result.bugs.length > 0 && <BugFixes bugs={result.bugs} />}
+            {result.features.length > 0 && <Features features={result.features} />}
         </>
     );
 }
