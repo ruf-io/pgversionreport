@@ -8,7 +8,7 @@ export default function Bug({ bug }: { bug: BugObject }) {
     if (bug.contributor) {
         contributor = (
             <span className="font-bold">
-                (contributed by {bug.contributor})
+                {" "}(contributed by {bug.contributor})
             </span>
         );
     }

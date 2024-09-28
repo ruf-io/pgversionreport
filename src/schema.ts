@@ -9,7 +9,6 @@ const Bug = z.object({
 });
 
 const Feature = z.object({
-    sqlExample: z.string(),
     title: z.string(),
     description: z.string(),
     sinceVersion: z.string(),
