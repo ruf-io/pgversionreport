@@ -1,59 +1,17 @@
 import { useEffect, useState } from "react";
 import Alert from "../atoms/Alert";
+import GeneralStats from "./GeneralStats";
 import BugFixes from "./BugFixes";
 import Features from "./Features";
 import PerformanceImprovements from "./PerformanceImprovements";
 import data from "@/data/pg_release_data";
-import versions from "@/data/version_dates.json";
+import Semver from "@/utils/Semver";
+import { sortedVersions } from "@/utils/postgresDates";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type ResolvedData = PromiseResulver<typeof data>;
 
 const versionRegex = /PostgreSQL ([0-9.]+)/;
-
-class Semver {
-    major: number;
-    minor: number;
-    patch: number;
-
-    constructor(version: string) {
-        const split = version.split(".");
-        try {
-            this.major = parseInt(split[0]);
-            if (isNaN(this.major)) throw 1;
-        } catch {
-            throw new Error("Invalid version");
-        }
-        try {
-            this.minor = parseInt(split[1]);
-            if (isNaN(this.minor)) this.minor = 0;
-        } catch {
-            this.minor = 0;
-        }
-        try {
-            this.patch = parseInt(split[2]);
-            if (isNaN(this.patch)) this.patch = 0;
-        } catch {
-            this.patch = 0;
-        }
-    }
-
-    newerOrEqual(version: Semver) {
-        if (this.major > version.major) {
-            return true;
-        }
-        if (this.major === version.major) {
-            if (this.minor > version.minor) {
-                return true;
-            }
-            if (this.minor === version.minor) {
-                return this.patch >= version.patch;
-            }
-        }
-        return false;
-    }
-}
-
 const semverCache: Map<string, Semver> = new Map();
 
 function getFromCache(version: string) {
@@ -95,24 +53,6 @@ function parseText(text: string, data: ResolvedData) {
         }),
     };
 }
-
-let sortedVersions: [Semver, Date][] = [];
-
-// Sort the versions.
-for (const version in versions) {
-    const semver = new Semver(version);
-    const date = new Date(versions[version]);
-    sortedVersions.push([semver, date]);
-}
-sortedVersions = sortedVersions.sort((a, b) => {
-    if (a[0].major !== b[0].major) {
-        return a[0].major - b[0].major;
-    }
-    if (a[0].minor !== b[0].minor) {
-        return a[0].minor - b[0].minor;
-    }
-    return a[0].patch - b[0].patch;
-});
 
 export default function Parser({ text }: { text: string }) {
     // Defines the release data.
@@ -214,6 +154,7 @@ export default function Parser({ text }: { text: string }) {
     return (
         <>
             {node}
+            <GeneralStats data={result} />
             {result.bugs.length > 0 && <BugFixes bugs={result.bugs} />}
             {result.features.length > 0 && <Features features={result.features} />}
             {result.performanceImprovements.length > 0 && <PerformanceImprovements performanceImprovements={result.performanceImprovements} />}

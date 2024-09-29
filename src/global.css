@@ -16,3 +16,9 @@
     font-display: swap;
     src: url("./fonts/Inter-Regular.ttf") format("truetype");
 }
+
+@media (prefers-color-scheme: dark) {
+    .vis-text, .vis-label {
+        color: white !important;
+    }    
+}
