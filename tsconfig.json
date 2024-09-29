@@ -5,7 +5,8 @@
             "@/*": ["src/*"]
         },
         "jsx": "react-jsx",
-        "module": "ESNext",
-        "moduleResolution": "Bundler"
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "allowSyntheticDefaultImports": true
     }
 }
