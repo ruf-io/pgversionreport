@@ -25,7 +25,7 @@ export default class Semver {
         }
     }
 
-    newerOrEqual(version: Semver) {
+    greaterThan(version: Semver) {
         if (this.major > version.major) {
             return true;
         }
@@ -34,7 +34,7 @@ export default class Semver {
                 return true;
             }
             if (this.minor === version.minor) {
-                return this.patch >= version.patch;
+                return this.patch > version.patch;
             }
         }
         return false;

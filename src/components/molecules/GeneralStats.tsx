@@ -168,7 +168,7 @@ function Overview({ data }: { data: Data }) {
 
     return (
         <div className="block w-full">
-            <div className="flex justify-center space-x-4 mt-4 flex-wrap">
+            <div className="flex justify-center space-x-4 space-y-4 mt-4 flex-wrap">
                 {cards}
             </div>
         </div>

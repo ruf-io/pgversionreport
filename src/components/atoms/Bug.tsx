@@ -10,7 +10,7 @@ export default function Bug({ bug }: { bug: Bug }) {
     if (bug.contributors.length > 0) {
         contributors = (
             <span className="font-bold">
-                {" "}(contributed by {bug.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))}
+                {" "}(contributed by {bug.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))})
             </span>
         );
     }

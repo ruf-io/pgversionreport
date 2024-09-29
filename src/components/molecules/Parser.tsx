@@ -39,17 +39,17 @@ function parseText(text: string, data: ResolvedData) {
         bugs: data.bugs.filter((bug) => {
             // Check if the bug is fixed in the version.
             const fixedIn = getFromCache(bug.fixedIn);
-            return fixedIn.newerOrEqual(version);
+            return fixedIn.greaterThan(version);
         }),
         features: data.features.filter((feature) => {
             // Check if the feature is available in the version.
             const sinceVersion = getFromCache(feature.sinceVersion);
-            return sinceVersion.newerOrEqual(version);
+            return sinceVersion.greaterThan(version);
         }),
         performanceImprovements: data.performanceImprovements.filter((performanceImprovement) => {
             // Check if the performance improvement is available in the version.
             const sinceVersion = getFromCache(performanceImprovement.sinceVersion);
-            return sinceVersion.newerOrEqual(version);
+            return sinceVersion.greaterThan(version);
         }),
     };
 }
@@ -88,7 +88,7 @@ export default function Parser({ text }: { text: string }) {
     }
 
     // Find the version.
-    const versionIndex = sortedVersions.findIndex((version) => version[0].newerOrEqual(result.version));
+    const versionIndex = sortedVersions.findIndex((version) => version[0].greaterThan(result.version));
     let node: React.ReactNode = null;
     if (versionIndex !== -1) {
         // Handle semver.
@@ -131,22 +131,6 @@ export default function Parser({ text }: { text: string }) {
                 <span className="font-bold">PostgreSQL {result.version.major}.{result.version.minor}.{result.version.patch}</span> was released on{" "}
                 <span className="font-bold">{date.toLocaleDateString()} ({ago})</span>.{" "}{latest}
             </p>
-        );
-    }
-
-    // Bail early if there are no results.
-    if (
-        result.bugs.length === 0 &&
-        result.features.length === 0 &&
-        result.performanceImprovements.length === 0
-    ) {
-        return (
-            <>
-                {node}
-                <Alert isError={false}>
-                    No security issues or missing features found in the version you entered.
-                </Alert>
-            </>
         );
     }
 

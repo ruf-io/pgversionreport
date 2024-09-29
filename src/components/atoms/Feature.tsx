@@ -9,7 +9,7 @@ export default function Feature({ feature }: { feature: FeatureObject }) {
     if (feature.contributors.length > 0) {
         contributors = (
             <span className="font-bold">
-                {" "}(contributed by {feature.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))}
+                {" "}(contributed by {feature.contributors.map((contributor, i) => (<span key={i}>{contributor}</span>))})
             </span>
         );
     }
