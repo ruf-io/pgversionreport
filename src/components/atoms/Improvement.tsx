@@ -1,4 +1,5 @@
 import type data from "@/data/pg_release_data";
+import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type Improvement = PromiseResulver<typeof data>["performanceImprovements"][0];
@@ -15,9 +16,13 @@ export default function Improvement({ improvement }: { improvement: Improvement 
         );
     }
 
+    const deepLink = generatePgDeepLink(improvement.sinceVersion, improvement.title);
+
     return (
         <li>
-            <span className="font-bold">{improvement.title}</span>:
+            <a href={deepLink} target="_blank" rel="noopener noreferrer" className="font-bold hover:underline">
+                {improvement.title}
+            </a>:
             {" "}{improvement.description} (added in {improvement.sinceVersion}{contributors})
         </li>
     );

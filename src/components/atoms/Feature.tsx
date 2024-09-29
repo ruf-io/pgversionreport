@@ -1,4 +1,5 @@
 import type data from "@/data/pg_release_data";
+import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type FeatureObject = PromiseResulver<typeof data>["features"][0];
@@ -13,9 +14,15 @@ export default function Feature({ feature }: { feature: FeatureObject }) {
         );
     }
 
+    const deepLink = generatePgDeepLink(feature.sinceVersion, feature.title);
+
     return (
-        <div className="border-2 border-code-green-1 p-2 text-center max-w-64">
-            <h3 className="font-title text-xl select-all mb-2">{feature.title}</h3>
+        <div className="p-2 text-center border-2 border-code-green-1 max-w-64">
+            <h3 className="mb-2 text-xl select-all font-title">
+                <a href={deepLink} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {feature.title}
+                </a>
+            </h3>
             <p className="select-none">{feature.description}{contributors}</p>
         </div>
     );
