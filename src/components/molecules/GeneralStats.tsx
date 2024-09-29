@@ -5,6 +5,7 @@ import Timeline from "../atoms/Timeline";
 import { sortedVersions, getPgVersionDate } from "@/utils/postgresDates";
 import type { DataItemCollectionType } from "vis-timeline/standalone";
 import Alert from "../atoms/Alert";
+import humanizeDuration from "humanize-duration";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type Data = PromiseResulver<typeof data> & { version: Semver };
@@ -35,7 +36,8 @@ function DataHeader({ version }: { version: Semver }) {
 
     // Figure out if the version is still supported.
     const now = new Date();
-    const endOfLife = new Date(date).setFullYear(date.getFullYear() + 5);
+    const endOfLife = new Date(date);
+    endOfLife.setFullYear(date.getFullYear() + 5);
     const isSupported = endOfLife.valueOf() > now.valueOf();
     if (!isSupported) {
         // Throw up a alert if the version is not supported.
@@ -53,18 +55,15 @@ function DataHeader({ version }: { version: Semver }) {
         );
     }
 
-    // Tell the user when the version will be EOL in years/months/days.
-    const timeLeft = endOfLife.valueOf() - now.valueOf();
-    const years = Math.floor(timeLeft / (1000 * 60 * 60 * 24 * 365));
-    const months = Math.floor((timeLeft % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-    const days = Math.floor((timeLeft % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-    const parts: string[] = [];
-    if (years) parts.push(`${years} year${years === 1 ? "" : "s"}`);
-    if (months) parts.push(`${months} month${months === 1 ? "" : "s"}`);
-    if (days) parts.push(`${days} day${days === 1 ? "" : "s"}`);
-    const chunk2 = parts.pop();
-    const chunk1 = parts.join(", ");
-    const chunk = chunk1 ? `${chunk1} and ${chunk2}` : chunk2;
+    // Calculate the duration chunk.
+    const chunk = humanizeDuration(
+        endOfLife.valueOf() - now.valueOf(),
+        {
+            round: true,
+            conjunction: " and ",
+            units: ["y", "mo", "w", "d"],
+        },
+    );
 
     // Figure out if this is the newest version.
     if (
