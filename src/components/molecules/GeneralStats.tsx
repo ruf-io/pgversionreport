@@ -6,6 +6,9 @@ import { sortedVersions, getPgVersionDate } from "@/utils/postgresDates";
 import type { DataItemCollectionType } from "vis-timeline/standalone";
 import Alert from "../atoms/Alert";
 import humanizeDuration from "humanize-duration";
+import BugFixes from "./BugFixes";
+import InformationalPanel from "../atoms/InformationalPanel";
+import { faBug, faCodeBranch, faStopwatch } from "@fortawesome/free-solid-svg-icons";
 
 type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
 type Data = PromiseResulver<typeof data> & { version: Semver };
@@ -122,11 +125,62 @@ function buildTimeline() {
     };
 }
 
+function Overview({ data }: { data: Data }) {
+    const cards: React.ReactNode[] = [];
+
+    if (data.bugs.length > 0) {
+        let text = `There are ${data.bugs.length} bug fixes in this version that are patched in newer builds.`;
+        const cves = data.bugs.filter((bug) => bug.cve !== null);
+        if (cves.length > 0) {
+            text += ` ${cves.length} of these bugs have a CVE associated with them meaning they are likely security issues.`;
+        }
+        cards.push(
+            <InformationalPanel
+                key="bug-fixes" className="border-code-red-1"
+                icon={faBug} title="Bug Fixes" description={text}
+            />
+        );
+    }
+
+    if (data.features.length > 0) {
+        cards.push(
+            <InformationalPanel
+                key="features" className="border-code-green-1"
+                icon={faCodeBranch} title="New Features"
+                description={`There are ${data.features.length} new features in newer versions.`}
+            />
+        );
+    }
+
+    if (data.performanceImprovements.length > 0) {
+        cards.push(
+            <InformationalPanel
+                key="performance" className="border-code-green-1"
+                icon={faStopwatch} title="Performance Improvements"
+                description={`There are ${data.performanceImprovements.length} performance improvements in newer versions.`}
+            />
+        );
+    }
+
+    if (cards.length === 0) {
+        return null;
+    }
+
+    return (
+        <div className="block w-full">
+            <div className="flex justify-center space-x-4 mt-4 flex-wrap">
+                {cards}
+            </div>
+        </div>
+    );
+}
+
 export default function GeneralStats({ data }: { data: Data }) {
     return (
         <Panel title="General Stats" description="Here are the general stats for this version.">
             <DataHeader version={data.version} />
             <Timeline {...buildTimeline()} />
+            <Overview data={data} />
         </Panel>
     );
 }
