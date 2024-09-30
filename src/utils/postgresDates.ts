@@ -1,4 +1,5 @@
 import versions from "@/data/version_dates.json";
+import eolDates from "@/data/eol_dates.json";
 import Semver from "./Semver";
 
 const dateCache: Map<string, Date> = new Map();
@@ -30,4 +31,4 @@ sortedVersions = sortedVersions.sort((a, b) => {
     return a[0].patch - b[0].patch;
 });
 
-export { sortedVersions };
+export { sortedVersions, eolDates };

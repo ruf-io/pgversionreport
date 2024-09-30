@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/badge"
+
 type Props = {
     title: string;
     description: string;
@@ -6,9 +8,9 @@ type Props = {
 
 export default function Panel({ title, description, children }: Props) {
     return (
-        <div className="font-title select-none p-2 my-2">
-            <div className="mb-4">
-                <h2 className="font-bold">{title}</h2>
+        <div className="my-4">
+            <div className="mb-4 flex flex-col items-start gap-2">
+                <h2 className="font-title font-extrabold text-4xl">{title}</h2>
                 <p>
                     {description}
                 </p>

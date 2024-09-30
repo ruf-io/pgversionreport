@@ -1,13 +1,11 @@
 {
-    "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
     "compilerOptions": {
-        "baseUrl": "./",
+        "composite": true,
+        "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": [
+                "./src/*"
+            ]
         },
         "jsx": "react-jsx",
         "module": "ESNext",
