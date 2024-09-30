@@ -2,18 +2,40 @@ import { useEffect, useState } from "react";
 import Parser from "./molecules/Parser";
 import { ToastContainer, toast } from "react-toastify";
 
+class DataQuery {
+    url: URL;
+
+    constructor() {
+        this.url = new URL(window.location.href);
+    }
+
+    get data() {
+        return this.url.searchParams.get("data") || "";
+    }
+
+    set data(data: string | null) {
+        if (data) {
+            this.url.searchParams.set("data", data);
+        } else {
+            this.url.searchParams.delete("data");
+        }
+        window.history.replaceState({}, "", this.url.toString());
+    }
+}
+
+const query = new DataQuery();
+
 function MainView() {
     // Defines the components text state.
     const [text, setText] = useState("");
 
     // Handle the component mounting and the window hash.
     useEffect(() => {
-        const hash = window.location.hash;
-        if (hash) {
+        if (query.data) {
             // Decode the hash.
             let decoded = "";
             try {
-                decoded = atob(hash.slice(1));
+                decoded = atob(query.data);
             } catch {}
 
             // Set the text.
@@ -29,7 +51,7 @@ function MainView() {
                 value={text}
                 onChange={(e) => {
                     setText(e.target.value);
-                    window.location.hash = btoa(e.target.value);
+                    query.data = btoa(e.target.value);
                 }}
                 placeholder='Run "SELECT version()" on your database and paste the result here...'
             />
