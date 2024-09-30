@@ -1,5 +1,5 @@
 import releaseData from "@/data/pg_release_data.json";
-import sharp, { gravity, OverlayOptions } from "sharp";
+import sharp, { OverlayOptions } from "sharp";
 import { rmSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
 import { sortedVersions } from "@/utils/postgresDates";
