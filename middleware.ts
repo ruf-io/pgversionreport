@@ -1,13 +1,6 @@
 import Semver from "./src/utils/Semver";
 import versions from "./src/data/version_dates.json";
 
-function noSlash(url: string) {
-    if (url.endsWith("/")) {
-        return url.substring(0, url.length - 1);
-    }
-    return url;
-}
-
 const versionRegex = /PostgreSQL ([0-9.]+)/;
 
 export default async function middleware(request: Request) {
@@ -18,10 +11,7 @@ export default async function middleware(request: Request) {
         const text = await (await fetch(indexUrl)).text();
 
         // Figure out the opengraph image url.
-        const queryParamsWiped = new URL(url);
-        queryParamsWiped.search = ""; // Stop a potential XSS! We do not need this here!
-        const baseUrl = noSlash(queryParamsWiped.toString());
-        let ogUrl = `${baseUrl}/images/default_og.png`;
+        let ogUrl = `${url.origin}/images/default_og.png`;
         try {
             // Try to decode the data.
             const data = atob(url.searchParams.get("data"));
@@ -37,7 +27,7 @@ export default async function middleware(request: Request) {
             const shortenedVersion = `${version.major}.${version.minor}`;
             if (shortenedVersion in versions) {
                 // Set the URL to this.
-                ogUrl = `${baseUrl}/images/pg_generated/${shortenedVersion}.png`;
+                ogUrl = `${url.origin}/images/pg_generated/${shortenedVersion}.png`;
             }
         } catch {
             // Use the default if this fails for any reason.
