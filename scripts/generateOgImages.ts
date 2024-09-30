@@ -1,5 +1,5 @@
 import releaseData from "@/data/pg_release_data.json";
-import sharp from "sharp";
+import sharp, { gravity, OverlayOptions } from "sharp";
 import { rmSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
 import { sortedVersions } from "@/utils/postgresDates";
@@ -53,6 +53,29 @@ function getFromCache(version: string) {
     const semver = new Semver(version);
     semverCache.set(version, semver);
     return semver;
+}
+
+// Generate a smaller card to fit inside the main card.
+function generateCard(
+    iconSvg: string, title: string, count: number, r: number, g: number, b: number,
+) {
+    return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 400 400">
+    <defs>
+        <style type="text/css">
+            @import url('https://fonts.googleapis.com/css2?family=Inter');
+        </style>
+    </defs>
+    <rect x="0" y="0" width="300" height="400" fill="rgb(${r}, ${g}, ${b})"/>
+    <g transform="scale(0.3) translate(300, 100)">
+        ${iconSvg}
+    </g>
+    <text style="font-family: Inter;" x="37%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="48" fill="white">
+        ${sanitize(title)}
+    </text>
+    <text style="font-family: Inter;" x="37%" y="90%" dominant-baseline="middle" text-anchor="middle" font-size="120" fill="white">
+        ${count}
+    </text>
+</svg>`);
 }
 
 for (let i = 0; i < sortedVersions.length; i++) {
@@ -125,11 +148,49 @@ for (let i = 0; i < sortedVersions.length; i++) {
     const subtitle = `There are ${chunks.join(", ")} in newer versions`;
 
     // Draw the image.
+    const cards: OverlayOptions[] = [];
+    const alignment = 34;
+    if (bugs.length > 0) {
+        cards.push({
+            input: generateCard(
+                readFileSync(join(__dirname, "assets", "bug.svg"), "utf-8"),
+                "Bug Fixes", bugs.length,
+                255, 0, 0,
+            ),
+            left: 450 + alignment,
+            top: 115,
+        });
+    }
+    if (features.length > 0) {
+        cards.push({
+            input: generateCard(
+                readFileSync(join(__dirname, "assets", "feature.svg"), "utf-8"),
+                "Features", features.length,
+                0, 128, 0,
+            ),
+            left: 150 + alignment,
+            top: 115,
+        });
+    }
+    if (performanceImprovements.length > 0) {
+        cards.push({
+            input: generateCard(
+                readFileSync(join(__dirname, "assets", "performance.svg"), "utf-8"),
+                "Perf Boosts", performanceImprovements.length,
+                // darkened green
+                0, 64, 0,
+            ),
+            left: 750 + alignment,
+            top: 115,
+        });
+    }
+
     image
         .composite([
             {
                 input: makeTextSvg(title, subtitle),
             },
+            ...cards,
         ])
         .toFile(join(pgGeneratedFolder, `${version.major}.${version.minor}.png`));
 }
