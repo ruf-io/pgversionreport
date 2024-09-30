@@ -29,8 +29,6 @@ function parseText(text: string, data: ResolvedData) {
     if (!versionMatch) {
         return null;
     }
-
-    // Extract the version.
     const version = new Semver(versionMatch[1]);
 
     // Filter the content.

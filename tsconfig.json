@@ -7,6 +7,7 @@
         "jsx": "react-jsx",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true
     }
 }
