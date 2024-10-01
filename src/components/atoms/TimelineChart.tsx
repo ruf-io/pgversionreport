@@ -9,22 +9,21 @@ import Semver from "@/utils/Semver";
 
 type Props = {
     data: VersionData;
-    min_epoch: number;
-    max_duration: number;
-    current_version: Semver;
-    showXAxis: boolean;
+    minEpoch: number;
+    maxDuration: number;
+    currentVersion: Semver;
 };
 
 export default function TimelineChart({
     data,
-    min_epoch,
-    max_duration,
-    current_version,
+    minEpoch,
+    maxDuration,
+    currentVersion,
 }: Props) {
     const isCurrentVersion = (minor: MinorVersionInfo) => {
         return (
-            current_version.major === data.major_version &&
-            current_version.minor === minor.minor_version
+            currentVersion.major === data.majorVersion &&
+            currentVersion.minor === minor.minorVersion
         );
     };
 
@@ -34,40 +33,40 @@ export default function TimelineChart({
                 className="inline-block text-right leading-6 pr-2 h-auto font-bold"
                 style={{
                     width: `${
-                        ((new Date(data.first_release_date).getTime() -
-                            min_epoch) /
-                            max_duration) *
+                        ((new Date(data.firstReleaseDate).getTime() -
+                        minEpoch) /
+                            maxDuration) *
                         100
                     }%`,
                 }}
             >
-                Postgres {data.major_version}
+                Postgres {data.majorVersion}
             </div>
 
-            {data.minor_versions.map((minor, i) => (
+            {data.minorVersions.map((minor, i) => (
                 <TooltipProvider key={i}>
                     <Tooltip>
                         <TooltipTrigger
                             className={`relative inline-block text-xs text-white h-auto leading-6 ${isCurrentVersion(minor) ? "shadow-lg border border-black bg-foreground/80" : "bg-muted-foreground/80 hover:bg-muted-foreground/90"} `}
                             style={{
                                 width: `${
-                                    i < data.minor_versions.length - 1
+                                    i < data.minorVersions.length - 1
                                         ? ((new Date(
-                                              data.minor_versions[
+                                              data.minorVersions[
                                                   i + 1
-                                              ].release_date,
+                                              ].releaseDate,
                                           ).getTime() -
                                               new Date(
-                                                  minor.release_date,
+                                                  minor.releaseDate,
                                               ).getTime()) /
-                                              max_duration) *
+                                              maxDuration) *
                                           100
                                         : 2
                                 }%`,
                             }}
                         >
                             <div className="absolute w-px h-full bg-black opacity-20" />
-                            <span className="ml-1">.{minor.minor_version}</span>
+                            <span className="ml-1">.{minor.minorVersion}</span>
                             {isCurrentVersion(minor) && (
                                 <div className="absolute -top-10 block -left-8 text-sm text-primary-foreground bg-primary border border-foreground rounded w-28 px-2 py-1">
                                     You are here.
@@ -76,8 +75,8 @@ export default function TimelineChart({
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>
-                                {data.major_version}.{minor.minor_version}:{" "}
-                                {new Date(minor.release_date)
+                                {data.majorVersion}.{minor.minorVersion}:{" "}
+                                {new Date(minor.releaseDate)
                                     .toISOString()
                                     .substring(0, 10)}
                             </p>

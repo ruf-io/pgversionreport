@@ -26,102 +26,102 @@ type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type Data = PromiseResolver<typeof data> & { version: Semver };
 
 export type MinorVersionInfo = {
-    minor_version: number;
-    release_date: Date;
+    minorVersion: number;
+    releaseDate: Date;
 };
 
 export type VersionData = {
-    major_version: number;
-    first_release_date: Date;
-    eol_date: string;
-    is_eol: boolean;
-    minor_versions: MinorVersionInfo[];
+    majorVersion: number;
+    firstReleaseDate: Date;
+    eolDate: string;
+    isEol: boolean;
+    minorVersions: MinorVersionInfo[];
 };
 
 export default function VersionMapCard({ data }: { data: Data }) {
-    const major_versions: Map<number, VersionData> = new Map();
-    let minor_versions_behind = 0;
-    let major_versions_behind = 0;
+    const majorVersions: Map<number, VersionData> = new Map();
+    let minorVersionsBehind = 0;
+    let majorVersionsBehind = 0;
     for (const [semver, date] of sortedVersions) {
-        const majorVersionContainer = major_versions.get(semver.major);
+        const majorVersionContainer = majorVersions.get(semver.major);
         if (!majorVersionContainer) {
             const eolDate = eolDates[String(semver.major) as keyof typeof eolDates];
-            major_versions.set(semver.major, {
-                major_version: semver.major,
-                first_release_date: date,
-                eol_date: eolDate
+            majorVersions.set(semver.major, {
+                majorVersion: semver.major,
+                firstReleaseDate: date,
+                eolDate: eolDate
                     ? eolDate
                     : "TBD",
-                is_eol: eolDate
+                isEol: eolDate
                     ? new Date(eolDate).getTime() < +new Date()
                     : false,
-                minor_versions: [
+                minorVersions: [
                     {
-                        minor_version: semver.minor,
-                        release_date: date,
+                        minorVersion: semver.minor,
+                        releaseDate: date,
                     },
                 ],
             });
             if (semver.major > data.version.major) {
-                major_versions_behind++;
+                majorVersionsBehind++;
             }
         } else {
-            majorVersionContainer.minor_versions.push({
-                minor_version: semver.minor,
-                release_date: date,
+            majorVersionContainer.minorVersions.push({
+                minorVersion: semver.minor,
+                releaseDate: date,
             });
 
             if (
                 semver.major === data.version.major &&
                 semver.minor > data.version.minor
             ) {
-                minor_versions_behind++;
+                minorVersionsBehind++;
             }
         }
     }
-    const active_major_versions = Array.from(major_versions.values())
-        .filter((v) => !v.is_eol)
-        .sort((a, b) => a.major_version - b.major_version);
+    const activeMajorVersions = Array.from(majorVersions.values())
+        .filter((v) => !v.isEol)
+        .sort((a, b) => a.majorVersion - b.majorVersion);
 
-    const min_epoch = new Date(
-        active_major_versions[0].first_release_date.getFullYear(),
+    const minEpoch = new Date(
+        activeMajorVersions[0].firstReleaseDate.getFullYear(),
         0,
         1,
     ).getTime();
-    const max_duration =
+    const maxDuration =
         new Date(
-            active_major_versions
+            activeMajorVersions
                 .at(-1)
-                .minor_versions.at(-1)
-                .release_date.getTime() +
+                .minorVersions.at(-1)
+                .releaseDate.getTime() +
                 120 * 24 * 60 * 60 * 1000,
-        ).getTime() - min_epoch;
-    const num_years = max_duration / (365 * 24 * 60 * 60 * 1000);
-    const start_year = new Date(min_epoch).getFullYear();
+        ).getTime() - minEpoch;
+    const numYears = maxDuration / (365 * 24 * 60 * 60 * 1000);
+    const startYear = new Date(minEpoch).getFullYear();
 
-    const current_version_release_date = getPgVersionDate(
+    const current_version_releaseDate = getPgVersionDate(
         `${data.version.major}.${data.version.minor}`,
     );
-    const current_version_release_date_nice =
-        current_version_release_date.toLocaleDateString("en-US", {
+    const currentVersionReleaseDateNice =
+        current_version_releaseDate.toLocaleDateString("en-US", {
             year: "numeric",
             month: "short",
             day: "numeric",
         });
-    const current_version_release_days_ago = Math.floor(
-        (new Date().getTime() - current_version_release_date.getTime()) /
+    const currentVersionDaysAgo = Math.floor(
+        (new Date().getTime() - current_version_releaseDate.getTime()) /
             86400000,
     );
 
-    const current_version_eol_date = new Date(eolDates[String(data.version.major) as keyof typeof eolDates]);
-    const current_version_eol_date_nice =
-        current_version_eol_date.toLocaleDateString("en-US", {
+    const currentVersionEolDate = new Date(eolDates[String(data.version.major) as keyof typeof eolDates]);
+    const currentVersionEolDateNice =
+        currentVersionEolDate.toLocaleDateString("en-US", {
             year: "numeric",
             month: "short",
             day: "numeric",
         });
-    const current_version_eol_days_remaining = Math.floor(
-        (current_version_eol_date.getTime() - new Date().getTime()) / 86400000,
+    const currentVersionEolDaysRemaining = Math.floor(
+        (currentVersionEolDate.getTime() - new Date().getTime()) / 86400000,
     );
 
     return (
@@ -129,9 +129,9 @@ export default function VersionMapCard({ data }: { data: Data }) {
             <CardHeader className="p-4 pb-0">
                 <CardTitle>Version Map</CardTitle>
                 <CardDescription>
-                    You are <InlineCode>{minor_versions_behind}</InlineCode>{" "}
+                    You are <InlineCode>{minorVersionsBehind}</InlineCode>{" "}
                     minor versions behind and{" "}
-                    <InlineCode>{major_versions_behind}</InlineCode> major
+                    <InlineCode>{majorVersionsBehind}</InlineCode> major
                     versions behind.
                     <Button variant="link" className="">
                         Learn how to upgrade.
@@ -148,10 +148,10 @@ export default function VersionMapCard({ data }: { data: Data }) {
                                 Release Date
                             </div>
                             <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
-                                {current_version_release_date_nice}
+                                {currentVersionReleaseDateNice}
                             </div>
                             <div className="text-sm text-muted-foreground">
-                                <code>{current_version_release_days_ago}</code>{" "}
+                                <code>{currentVersionDaysAgo}</code>{" "}
                                 days ago
                             </div>
                         </div>
@@ -178,12 +178,12 @@ export default function VersionMapCard({ data }: { data: Data }) {
                                 </Popover>
                             </div>
                             <div className="flex items-baseline gap-1 text-xl font-bold tabular-nums leading-none">
-                                {current_version_eol_date_nice}
+                                {currentVersionEolDateNice}
                             </div>
                             <div className="text-sm text-muted-foreground">
                                 in{" "}
                                 <code>
-                                    {current_version_eol_days_remaining}
+                                    {currentVersionEolDaysRemaining}
                                 </code>{" "}
                                 days
                             </div>
@@ -192,29 +192,28 @@ export default function VersionMapCard({ data }: { data: Data }) {
                 </div>
                 <div className="mx-auto relative w-full max-w-[80%]">
                     <div className="h-8 w-full">
-                        {[...Array(Math.floor(num_years))].map((e, i) => (
+                        {[...Array(Math.floor(numYears))].map((e, i) => (
                             <div
                                 key={i}
                                 className="inline-block"
                                 style={{
-                                    width: `${(1 / num_years) * 100}%`,
+                                    width: `${(1 / numYears) * 100}%`,
                                 }}
                             >
                                 <div className="absolute w-px h-full bg-gradient-to-b from-foreground to-background opacity-10" />
                                 <span className="pl-2 text-muted-foreground text-sm">
-                                    {start_year + i}
+                                    {startYear + i}
                                 </span>
                             </div>
                         ))}
                     </div>
-                    {active_major_versions.map((major, i) => (
+                    {activeMajorVersions.map((major, i) => (
                         <TimelineChart
                             key={i}
                             data={major}
-                            min_epoch={min_epoch}
-                            max_duration={max_duration}
-                            current_version={data.version}
-                            showXAxis={i === active_major_versions.length - 1}
+                            minEpoch={minEpoch}
+                            maxDuration={maxDuration}
+                            currentVersion={data.version}
                         />
                     ))}
                 </div>
