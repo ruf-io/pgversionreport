@@ -78,7 +78,7 @@ export const columns: ColumnDef<Payment>[] = [
         accessorKey: "title",
         header: "Title",
         cell: ({ row }) => (
-            <CollapsibleDataItem>{row.getValue("title")}</CollapsibleDataItem>
+            <CollapsibleDataItem title="">{row.getValue("title")}</CollapsibleDataItem>
         ),
     },
     {

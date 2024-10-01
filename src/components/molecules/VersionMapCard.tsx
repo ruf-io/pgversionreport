@@ -25,20 +25,35 @@ import {
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type Data = PromiseResolver<typeof data> & { version: Semver };
 
+export type MinorVersionInfo = {
+    minor_version: number;
+    release_date: Date;
+};
+
+export type VersionData = {
+    major_version: number;
+    first_release_date: Date;
+    eol_date: string;
+    is_eol: boolean;
+    minor_versions: MinorVersionInfo[];
+};
+
 export default function VersionMapCard({ data }: { data: Data }) {
-    const major_versions = {};
+    const major_versions: Map<number, VersionData> = new Map();
     let minor_versions_behind = 0;
     let major_versions_behind = 0;
     for (const [semver, date] of sortedVersions) {
-        if (!major_versions[semver.major]) {
-            major_versions[semver.major] = {
+        const majorVersionContainer = major_versions.get(semver.major);
+        if (!majorVersionContainer) {
+            const eolDate = eolDates[String(semver.major) as keyof typeof eolDates];
+            major_versions.set(semver.major, {
                 major_version: semver.major,
                 first_release_date: date,
-                eol_date: eolDates[semver.major]
-                    ? eolDates[semver.major]
+                eol_date: eolDate
+                    ? eolDate
                     : "TBD",
-                is_eol: eolDates[semver.major]
-                    ? new Date(eolDates[semver.major]).getTime() < +new Date()
+                is_eol: eolDate
+                    ? new Date(eolDate).getTime() < +new Date()
                     : false,
                 minor_versions: [
                     {
@@ -46,12 +61,12 @@ export default function VersionMapCard({ data }: { data: Data }) {
                         release_date: date,
                     },
                 ],
-            };
+            });
             if (semver.major > data.version.major) {
                 major_versions_behind++;
             }
         } else {
-            major_versions[semver.major].minor_versions.push({
+            majorVersionContainer.minor_versions.push({
                 minor_version: semver.minor,
                 release_date: date,
             });
@@ -64,7 +79,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
             }
         }
     }
-    const active_major_versions = Object.values(major_versions)
+    const active_major_versions = Array.from(major_versions.values())
         .filter((v) => !v.is_eol)
         .sort((a, b) => a.major_version - b.major_version);
 
@@ -98,7 +113,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
             86400000,
     );
 
-    const current_version_eol_date = new Date(eolDates[data.version.major]);
+    const current_version_eol_date = new Date(eolDates[String(data.version.major) as keyof typeof eolDates]);
     const current_version_eol_date_nice =
         current_version_eol_date.toLocaleDateString("en-US", {
             year: "numeric",
@@ -118,7 +133,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
                     minor versions behind and{" "}
                     <InlineCode>{major_versions_behind}</InlineCode> major
                     versions behind.
-                    <Button variant="link" href="#" className="">
+                    <Button variant="link" className="">
                         Learn how to upgrade.
                     </Button>
                 </CardDescription>

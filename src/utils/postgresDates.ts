@@ -8,7 +8,7 @@ export function getPgVersionDate(version: string) {
     if (dateCache.has(version)) {
         return dateCache.get(version);
     }
-    const date = new Date(versions[version]);
+    const date = new Date(versions[version as keyof typeof versions]);
     dateCache.set(version, date);
     return date;
 }
@@ -16,9 +16,9 @@ export function getPgVersionDate(version: string) {
 let sortedVersions: [Semver, Date][] = [];
 
 // Sort the versions.
-for (const version in versions) {
+for (const [version, dateStr] of Object.entries(versions)) {
     const semver = new Semver(version);
-    const date = new Date(versions[version]);
+    const date = new Date(dateStr);
     sortedVersions.push([semver, date]);
 }
 sortedVersions = sortedVersions.sort((a, b) => {

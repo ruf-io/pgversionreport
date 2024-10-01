@@ -4,12 +4,14 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import type { MinorVersionInfo, VersionData } from "../molecules/VersionMapCard";
+import Semver from "@/utils/Semver";
 
 type Props = {
-    data: any;
+    data: VersionData;
     min_epoch: number;
     max_duration: number;
-    current_version: any;
+    current_version: Semver;
     showXAxis: boolean;
 };
 
@@ -19,7 +21,7 @@ export default function TimelineChart({
     max_duration,
     current_version,
 }: Props) {
-    const isCurrentVersion = (minor) => {
+    const isCurrentVersion = (minor: MinorVersionInfo) => {
         return (
             current_version.major === data.major_version &&
             current_version.minor === minor.minor_version
@@ -43,11 +45,10 @@ export default function TimelineChart({
             </div>
 
             {data.minor_versions.map((minor, i) => (
-                <TooltipProvider>
+                <TooltipProvider key={i}>
                     <Tooltip>
                         <TooltipTrigger
                             className={`relative inline-block text-xs text-white h-auto leading-6 ${isCurrentVersion(minor) ? "shadow-lg border border-black bg-foreground/80" : "bg-muted-foreground/80 hover:bg-muted-foreground/90"} `}
-                            key={i}
                             style={{
                                 width: `${
                                     i < data.minor_versions.length - 1

@@ -1,18 +1,14 @@
 {
-    "references": [
-        {
-            "path": "./tsconfig.app.json"
-        }
-    ],
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
             "@/*": ["./src/*"]
         },
         "jsx": "react-jsx",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
+        "module": "Preserve",
+        "moduleResolution": "Bundler",
         "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "noImplicitAny": true
     }
 }

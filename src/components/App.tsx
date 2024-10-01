@@ -14,17 +14,24 @@ import { Info } from "lucide-react";
 import Panel from "./atoms/Panel";
 
 class DataQuery {
-    url: URL;
+    url: URL | null;
 
     constructor() {
+        if (typeof window === "undefined") {
+            this.url = null;
+            return;
+        }
         this.url = new URL(window.location.href);
     }
 
     get data() {
-        return this.url.searchParams.get("data") || "";
+        return this.url?.searchParams.get("data") || "";
     }
 
     set data(data: string | null) {
+        if (!this.url) {
+            return;
+        }
         if (data) {
             this.url.searchParams.set("data", data);
         } else {
