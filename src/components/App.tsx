@@ -201,7 +201,7 @@ function MainView() {
                 </Panel>
                 <hr />
                 <p className="text-center text-sm text-muted-foreground pb-12">
-                    Made with ❤️ by <a href="">a</a>
+                    Made with ❤️ by <a href="https://neon.tech">Neon</a>
                 </p>
             </div>
         </div>
