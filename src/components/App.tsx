@@ -147,7 +147,7 @@ function MainView() {
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
-                                    window.location.hash = btoa(e.target.value);
+                                    query.data = btoa(e.target.value);
                                 }}
                                 id="name"
                                 placeholder="PostgreSQL 99.9 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.1 20240522 (Red Hat 13.3.1-1), 64-bit"
@@ -163,7 +163,6 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.1 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
                                         setText(version);
-                                        window.location.hash = btoa(version);
                                     }}
                                 >
                                     PG16 on RDS
@@ -175,7 +174,6 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.1 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
                                         setText(version);
-                                        window.location.hash = btoa(version);
                                     }}
                                 >
                                     RDS Aurora PG16
@@ -187,7 +185,6 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit";
                                         setText(version);
-                                        window.location.hash = btoa(version);
                                     }}
                                 >
                                     PG16 on Neon
