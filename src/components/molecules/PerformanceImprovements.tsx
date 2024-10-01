@@ -3,8 +3,8 @@ import type data from "@/data/pg_release_data";
 import Panel from "../atoms/Panel";
 import Improvement from "../atoms/Improvement";
 
-type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type PerformanceImprovements = PromiseResulver<typeof data>["performanceImprovements"];
+type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
+type PerformanceImprovements = PromiseResolver<typeof data>["performanceImprovements"];
 
 export default function PerformanceImprovements(
     { performanceImprovements }: { performanceImprovements: PerformanceImprovements },

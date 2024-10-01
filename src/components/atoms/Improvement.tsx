@@ -1,8 +1,8 @@
 import type data from "@/data/pg_release_data";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
-type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type Improvement = PromiseResulver<typeof data>["performanceImprovements"][0];
+type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
+type Improvement = PromiseResolver<typeof data>["performanceImprovements"][0];
 
 export default function Improvement({ improvement }: { improvement: Improvement }) {
     let contributors: React.ReactNode = "";

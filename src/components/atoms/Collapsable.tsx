@@ -12,7 +12,7 @@ export default function Collapsable({ expandText, collapseText, initialValues, c
     const id = useId();
 
     return (
-        <div className="font-title select-none p-2 my-2">
+        <div className="font-title p-2 my-2">
             <div className="flex flex-wrap space-y-2 space-x-2 mb-4" id={id}>
                 {initialValues}
                 {isCollapsed || collapsedValues}

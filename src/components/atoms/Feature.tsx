@@ -1,8 +1,8 @@
 import type data from "@/data/pg_release_data";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
-type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type FeatureObject = PromiseResulver<typeof data>["features"][0];
+type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
+type FeatureObject = PromiseResolver<typeof data>["features"][0];
 
 export default function Feature({ feature }: { feature: FeatureObject }) {
     let contributors: React.ReactNode = "";

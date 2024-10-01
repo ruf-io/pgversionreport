@@ -3,28 +3,12 @@ import type data from "@/data/pg_release_data";
 import Panel from "../atoms/Panel";
 import Alert from "../atoms/Alert";
 import OverviewStats from "./OverviewStats";
-import TimelineChart from "../atoms/TimelineChart";
-import {
-  sortedVersions,
-  getPgVersionDate,
-  eolDates,
-} from "@/utils/postgresDates";
+import { sortedVersions, getPgVersionDate } from "@/utils/postgresDates";
 import humanizeDuration from "humanize-duration";
-import {
-  Siren,
-  Bug,
-  CircleGauge,
-  CircleFadingArrowUp
-} from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import VersionMapCard from "./VersionMapCard";
 
-type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type Data = PromiseResulver<typeof data> & { version: Semver };
+type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
+type Data = PromiseResolver<typeof data> & { version: Semver };
 
 function UpToDate({ chunk }: { chunk: string }) {
   return (
@@ -120,90 +104,13 @@ function DataHeader({ version }: { version: Semver }) {
 }
 
 export default function GeneralStats({ data }: { data: Data }) {
-  const major_versions = {};
-  for (const [semver, date] of sortedVersions) {
-    if (!major_versions[semver.major]) {
-      major_versions[semver.major] = {
-        major_version: semver.major,
-        first_release_date: date,
-        eol_date: eolDates[semver.major] ? eolDates[semver.major] : "TBD",
-        is_eol: eolDates[semver.major]
-          ? new Date(eolDates[semver.major]).getTime() < +new Date()
-          : false,
-        minor_versions: [
-          {
-            minor_version: semver.minor,
-            release_date: date,
-          },
-        ],
-      };
-    } else {
-      major_versions[semver.major].minor_versions.push({
-        minor_version: semver.minor,
-        release_date: date,
-      });
-    }
-  }
-  const active_major_versions = Object.values(major_versions)
-    .filter((v) => !v.is_eol)
-    .sort((a, b) => a.major_version - b.major_version);
-
-  const min_epoch = new Date(
-    active_major_versions[0].first_release_date.getFullYear(),
-    0,
-    1
-  ).getTime();
-  const max_duration =
-      new Date(active_major_versions
-        .at(-1)
-        .minor_versions.at(-1)
-        .release_date.getTime() + (120 * 24 * 60 * 60 * 1000)).getTime() - min_epoch;
-  const num_years = max_duration / (365 * 24 * 60 * 60 * 1000);
-  const start_year = new Date(min_epoch).getFullYear();
-
   return (
     <Panel
       title={`Postgres ${data.version.major}.${data.version.minor} Version Report`}
-      description="Here are the general stats for this version."
     >
-      <div className="flex flex-col gap-4">
-      <OverviewStats data={data} />
-      
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Version Timeline</CardTitle>
-          <Siren className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-        <div className="relative">
-        <div className="h-8 w-full">
-          {[...Array(Math.floor(num_years))].map((e, i) => (
-            <div
-              key={i}
-              className="inline-block"
-              style={{
-                width: `${(1 / num_years) * 100}%`,
-              }}
-            >
-              <div className="absolute w-px h-full bg-black opacity-20" />
-              {start_year + i}
-            </div>
-          ))}
-        </div>
-        {active_major_versions.map((major, i) => (
-          <TimelineChart
-            key={i}
-            data={major}
-            min_epoch={min_epoch}
-            max_duration={max_duration}
-            current_version={data.version}
-            showXAxis={i === active_major_versions.length - 1}
-          />
-        ))}
-      </div>
-        </CardContent>
-      </Card>
-      <DataHeader version={data.version} />
+      <div className="flex flex-col gap-8 pt-2">
+        <OverviewStats data={data} />
+        <VersionMapCard data={data} />
       </div>
     </Panel>
   );

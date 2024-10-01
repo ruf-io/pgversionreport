@@ -3,8 +3,8 @@ import Panel from "../atoms/Panel";
 import Collapsable from "../atoms/Collapsable";
 import Feature from "../atoms/Feature";
 
-type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type Features = PromiseResulver<typeof data>["features"];
+type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
+type Features = PromiseResolver<typeof data>["features"];
 
 export default function Features({ features }: { features: Features }) {
     // Filter out significant and insignificant features. We want to emphasize significant features.

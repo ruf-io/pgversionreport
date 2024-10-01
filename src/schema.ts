@@ -1,5 +1,13 @@
 import z from "zod";
 
+const CVE = z.object({
+    cve: z.string().nullable(),
+    title: z.string(),
+    description: z.string(),
+    fixedIn: z.string(),
+    contributors: z.array(z.string()),
+});
+
 const Bug = z.object({
     cve: z.string().nullable(),
     title: z.string(),
@@ -25,6 +33,7 @@ const PerformanceImprovement = z.object({
 });
 
 export const MainSchema = z.object({
+    cves: z.array(CVE),
     bugs: z.array(Bug),
     features: z.array(Feature),
     performanceImprovements: z.array(PerformanceImprovement),

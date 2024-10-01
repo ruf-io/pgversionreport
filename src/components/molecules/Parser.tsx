@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import Alert from "../atoms/Alert";
 import GeneralStats from "./GeneralStats";
-import BugFixes from "./BugFixes";
-import Features from "./Features";
-import PerformanceImprovements from "./PerformanceImprovements";
+import SecuritySection from "./SecuritySection";
+import BugsSection from "./BugsSection";
+import FeaturesSection from "./FeaturesSection";
+import PerformanceSection from "./PerformanceSection";
 import data from "@/data/pg_release_data";
 import Semver from "@/utils/Semver";
 import { sortedVersions } from "@/utils/postgresDates";
 
-type PromiseResulver<T> = T extends Promise<infer U> ? U : never;
-type ResolvedData = PromiseResulver<typeof data>;
+type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
+type ResolvedData = PromiseResolver<typeof data>;
 
 const versionRegex = /PostgreSQL ([0-9.]+)/;
 const semverCache: Map<string, Semver> = new Map();
@@ -39,7 +40,12 @@ function parseText(text: string, data: ResolvedData) {
         bugs: data.bugs.filter((bug) => {
             // Check if the bug is fixed in the version.
             const fixedIn = getFromCache(bug.fixedIn);
-            return fixedIn.newerOrEqual(version);
+            return fixedIn.newerOrEqual(version) && !bug.cve;
+        }),
+        cves: data.bugs.filter((bug) => {
+            // Check if the bug is fixed in the version.
+            const fixedIn = getFromCache(bug.fixedIn);
+            return fixedIn.newerOrEqual(version) && bug.cve;
         }),
         features: data.features.filter((feature) => {
             // Check if the feature is available in the version.
@@ -149,15 +155,19 @@ export default function Parser({ text }: { text: string }) {
             </>
         );
     }
+    console.log(result);
 
     // Return the fragment.
     return (
         <>
-            {node}
+            <hr/>
             <GeneralStats data={result} />
-            {result.bugs.length > 0 && <BugFixes bugs={result.bugs} />}
-            {result.features.length > 0 && <Features features={result.features} />}
-            {result.performanceImprovements.length > 0 && <PerformanceImprovements performanceImprovements={result.performanceImprovements} />}
+            <SecuritySection cves={result.cves} version={result.version} />
+            <BugsSection bugs={result.bugs} version={result.version} />
+            <PerformanceSection performanceImprovements={result.performanceImprovements} version={result.version} /> 
+            <FeaturesSection features={result.features} version={result.version} />
+            <hr/>
+            
         </>
     );
 }
