@@ -13,7 +13,9 @@ export default function Timeline({ items, groups }: Props) {
     useEffect(() => {
         if (!ref.current) return;
         let done = false;
-        let cleanup = () => { done = true; };
+        let cleanup = () => {
+            done = true;
+        };
         import("vis-timeline/standalone").then(({ Timeline }) => {
             if (done) return;
             const timeline = new Timeline(ref.current, items, {
@@ -21,9 +23,13 @@ export default function Timeline({ items, groups }: Props) {
                 groupEditable: false,
                 height: "16rem",
             });
-            timeline.setGroups(groups.map(
-                (name, index) => ({ id: index, content: name, order: index })
-            ));
+            timeline.setGroups(
+                groups.map((name, index) => ({
+                    id: index,
+                    content: name,
+                    order: index,
+                })),
+            );
             cleanup = () => {
                 timeline.destroy();
             };
@@ -32,7 +38,5 @@ export default function Timeline({ items, groups }: Props) {
     }, [items, groups]);
 
     // Avoid content shift by having a fixed size.
-    return (
-        <div ref={ref} className="h-64" />
-    );
+    return <div ref={ref} className="h-64" />;
 }

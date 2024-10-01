@@ -1,17 +1,29 @@
 type Props = {
     title: string;
-    description: string;
+    description?: string;
     children: React.ReactNode;
+    size?: "primary" | "secondary";
 };
 
-export default function Panel({ title, description, children }: Props) {
+export default function Panel({
+    title,
+    description,
+    children,
+    size = "primary",
+}: Props) {
     return (
-        <div className="font-title select-none p-2 my-2">
-            <div className="mb-4">
-                <h2 className="font-bold">{title}</h2>
-                <p>
-                    {description}
-                </p>
+        <div className="pt-2 pb-6">
+            <div className="mb-4 flex flex-col items-start gap-2">
+                <h2
+                    className={`text-foreground font-title font-extrabold ${
+                        size === "secondary" ? "text-3xl" : "text-4xl"
+                    }`}
+                >
+                    {title}
+                </h2>
+                {description && (
+                    <p className="text-muted-foreground">{description}</p>
+                )}
             </div>
             {children}
         </div>
