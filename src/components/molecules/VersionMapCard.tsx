@@ -45,13 +45,12 @@ export default function VersionMapCard({ data }: { data: Data }) {
     for (const [semver, date] of sortedVersions) {
         const majorVersionContainer = majorVersions.get(semver.major);
         if (!majorVersionContainer) {
-            const eolDate = eolDates[String(semver.major) as keyof typeof eolDates];
+            const eolDate =
+                eolDates[String(semver.major) as keyof typeof eolDates];
             majorVersions.set(semver.major, {
                 majorVersion: semver.major,
                 firstReleaseDate: date,
-                eolDate: eolDate
-                    ? eolDate
-                    : "TBD",
+                eolDate: eolDate ? eolDate : "TBD",
                 isEol: eolDate
                     ? new Date(eolDate).getTime() < +new Date()
                     : false,
@@ -113,13 +112,17 @@ export default function VersionMapCard({ data }: { data: Data }) {
             86400000,
     );
 
-    const currentVersionEolDate = new Date(eolDates[String(data.version.major) as keyof typeof eolDates]);
-    const currentVersionEolDateNice =
-        currentVersionEolDate.toLocaleDateString("en-US", {
+    const currentVersionEolDate = new Date(
+        eolDates[String(data.version.major) as keyof typeof eolDates],
+    );
+    const currentVersionEolDateNice = currentVersionEolDate.toLocaleDateString(
+        "en-US",
+        {
             year: "numeric",
             month: "short",
             day: "numeric",
-        });
+        },
+    );
     const currentVersionEolDaysRemaining = Math.floor(
         (currentVersionEolDate.getTime() - new Date().getTime()) / 86400000,
     );
@@ -129,8 +132,8 @@ export default function VersionMapCard({ data }: { data: Data }) {
             <CardHeader className="p-4 pb-0">
                 <CardTitle>Version Map</CardTitle>
                 <CardDescription>
-                    You are <InlineCode>{minorVersionsBehind}</InlineCode>{" "}
-                    minor versions behind and{" "}
+                    You are <InlineCode>{minorVersionsBehind}</InlineCode> minor
+                    versions behind and{" "}
                     <InlineCode>{majorVersionsBehind}</InlineCode> major
                     versions behind.
                     <Button variant="link" className="">
@@ -151,8 +154,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
                                 {currentVersionReleaseDateNice}
                             </div>
                             <div className="text-sm text-muted-foreground">
-                                <code>{currentVersionDaysAgo}</code>{" "}
-                                days ago
+                                <code>{currentVersionDaysAgo}</code> days ago
                             </div>
                         </div>
                     </div>
@@ -181,10 +183,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
                                 {currentVersionEolDateNice}
                             </div>
                             <div className="text-sm text-muted-foreground">
-                                in{" "}
-                                <code>
-                                    {currentVersionEolDaysRemaining}
-                                </code>{" "}
+                                in <code>{currentVersionEolDaysRemaining}</code>{" "}
                                 days
                             </div>
                         </div>

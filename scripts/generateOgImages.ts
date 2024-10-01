@@ -7,7 +7,13 @@ import Semver from "@/utils/Semver";
 
 console.log("Generating OG images for Postgres versions...");
 
-const pgGeneratedFolder = join(__dirname, "..", "public", "images", "pg_generated");
+const pgGeneratedFolder = join(
+    __dirname,
+    "..",
+    "public",
+    "images",
+    "pg_generated",
+);
 
 // Delete the folder.
 try {
@@ -57,7 +63,12 @@ function getFromCache(version: string) {
 
 // Generate a smaller card to fit inside the main card.
 function generateCard(
-    iconSvg: string, title: string, count: number, r: number, g: number, b: number,
+    iconSvg: string,
+    title: string,
+    count: number,
+    r: number,
+    g: number,
+    b: number,
 ) {
     return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 400 400">
     <defs>
@@ -101,14 +112,23 @@ for (let i = 0; i < sortedVersions.length; i++) {
         image
             .composite([
                 {
-                    input: makeTextSvg(`Postgres ${version.major}.${version.minor} is the latest version`),
+                    input: makeTextSvg(
+                        `Postgres ${version.major}.${version.minor} is the latest version`,
+                    ),
                 },
                 {
-                    input: Buffer.from(readFileSync(join(__dirname, "assets", "tick.svg"))),
+                    input: Buffer.from(
+                        readFileSync(join(__dirname, "assets", "tick.svg")),
+                    ),
                     gravity: "center",
                 },
             ])
-            .toFile(join(pgGeneratedFolder, `${version.major}.${version.minor}.png`));
+            .toFile(
+                join(
+                    pgGeneratedFolder,
+                    `${version.major}.${version.minor}.png`,
+                ),
+            );
         continue;
     }
 
@@ -129,10 +149,14 @@ for (let i = 0; i < sortedVersions.length; i++) {
         const sinceVersion = getFromCache(feature.sinceVersion);
         return sinceVersion.greaterThan(version);
     });
-    const performanceImprovements = releaseData.performanceImprovements.filter((performanceImprovement) => {
-        const sinceVersion = getFromCache(performanceImprovement.sinceVersion);
-        return sinceVersion.greaterThan(version);
-    });
+    const performanceImprovements = releaseData.performanceImprovements.filter(
+        (performanceImprovement) => {
+            const sinceVersion = getFromCache(
+                performanceImprovement.sinceVersion,
+            );
+            return sinceVersion.greaterThan(version);
+        },
+    );
 
     // Get the subtitle.
     const chunks: string[] = [];
@@ -143,7 +167,9 @@ for (let i = 0; i < sortedVersions.length; i++) {
         chunks.push(`${features.length} new features`);
     }
     if (performanceImprovements.length > 0) {
-        chunks.push(`${performanceImprovements.length} performance improvements`);
+        chunks.push(
+            `${performanceImprovements.length} performance improvements`,
+        );
     }
     const subtitle = `There are ${chunks.join(", ")} in newer versions`;
 
@@ -154,8 +180,11 @@ for (let i = 0; i < sortedVersions.length; i++) {
         cards.push({
             input: generateCard(
                 readFileSync(join(__dirname, "assets", "bug.svg"), "utf-8"),
-                "Bug Fixes", bugs.length,
-                255, 0, 0,
+                "Bug Fixes",
+                bugs.length,
+                255,
+                0,
+                0,
             ),
             left: 450 + alignment,
             top: 115,
@@ -165,8 +194,11 @@ for (let i = 0; i < sortedVersions.length; i++) {
         cards.push({
             input: generateCard(
                 readFileSync(join(__dirname, "assets", "feature.svg"), "utf-8"),
-                "Features", features.length,
-                0, 128, 0,
+                "Features",
+                features.length,
+                0,
+                128,
+                0,
             ),
             left: 150 + alignment,
             top: 115,
@@ -175,10 +207,16 @@ for (let i = 0; i < sortedVersions.length; i++) {
     if (performanceImprovements.length > 0) {
         cards.push({
             input: generateCard(
-                readFileSync(join(__dirname, "assets", "performance.svg"), "utf-8"),
-                "Perf Boosts", performanceImprovements.length,
+                readFileSync(
+                    join(__dirname, "assets", "performance.svg"),
+                    "utf-8",
+                ),
+                "Perf Boosts",
+                performanceImprovements.length,
                 // darkened green
-                0, 64, 0,
+                0,
+                64,
+                0,
             ),
             left: 750 + alignment,
             top: 115,
@@ -192,5 +230,7 @@ for (let i = 0; i < sortedVersions.length; i++) {
             },
             ...cards,
         ])
-        .toFile(join(pgGeneratedFolder, `${version.major}.${version.minor}.png`));
+        .toFile(
+            join(pgGeneratedFolder, `${version.major}.${version.minor}.png`),
+        );
 }

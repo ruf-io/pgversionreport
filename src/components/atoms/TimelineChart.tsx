@@ -4,7 +4,10 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import type { MinorVersionInfo, VersionData } from "../molecules/VersionMapCard";
+import type {
+    MinorVersionInfo,
+    VersionData,
+} from "../molecules/VersionMapCard";
 import Semver from "@/utils/Semver";
 
 type Props = {
@@ -34,7 +37,7 @@ export default function TimelineChart({
                 style={{
                     width: `${
                         ((new Date(data.firstReleaseDate).getTime() -
-                        minEpoch) /
+                            minEpoch) /
                             maxDuration) *
                         100
                     }%`,

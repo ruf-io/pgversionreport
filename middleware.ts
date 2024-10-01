@@ -35,8 +35,8 @@ export default async function middleware(request: Request) {
 
         // Update the HTML based on it and return that to the user.
         const html = text.replace(
-            '<meta property="og:image" content="INJECT_OG_IMAGE_HERE">',
-            `<meta property="og:image" content="${ogUrl}">`,
+            'content="INJECT_OG_IMAGE_HERE"',
+            `content="${ogUrl}"`,
         );
         return new Response(html, {
             headers: {

@@ -1,4 +1,4 @@
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core"
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
@@ -8,7 +8,12 @@ type Props = {
     description: string;
 };
 
-export default function InformationalPanel({ icon, className, title, description }: Props) {
+export default function InformationalPanel({
+    icon,
+    className,
+    title,
+    description,
+}: Props) {
     return (
         <div className={`${className} border-2 p-2 text-center flex-col`}>
             <div className="text-2xl">
