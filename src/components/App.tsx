@@ -93,7 +93,7 @@ function MainView() {
                         </div>
                     </>
                 ) : (
-                    <div className="flex flex-col gap-2 text-left">
+                    <div className="flex flex-col gap-2 text-left mt-20">
                         <span className="text-2xl text-muted-foreground font-extrabold font-title tracking-tight">
                             PG Version Report
                         </span>
