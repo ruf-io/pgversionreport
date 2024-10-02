@@ -72,23 +72,8 @@ function MainView() {
             <div
                 className={`${
                     !text ? "max-w-md" : "max-w-7xl"
-                } relative mx-auto flex w-full flex-col space-y-6 justify-center`}
+                } mx-auto w-full flex-col space-y-6 justify-center`}
             >
-                {text && (
-                    <Button
-                        className="absolute top-[196px] right-0"
-                        variant="default"
-                        onClick={() => {
-                            navigator.clipboard.writeText(window.location.href);
-                            toast({
-                                description: "Link copied to clipboard!",
-                            });
-                        }}
-                    >
-                        Share Report
-                    </Button>
-                )}
-
                 {!text ? (
                     <>
                         <div className="flex flex-col gap-2 text-center">
@@ -143,7 +128,7 @@ function MainView() {
                                 </Popover>
                             </div>
                             <Input
-                                className={`${text && "text-muted-foreground"} max-w-3xl`}
+                                className={text && "text-muted-foreground"}
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
@@ -153,6 +138,20 @@ function MainView() {
                                 placeholder="PostgreSQL 99.9 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.1 20240522 (Red Hat 13.3.1-1), 64-bit"
                             />
                         </div>
+                        {text && (
+                            <Button
+                                variant="default"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(window.location.href);
+                                    toast({
+                                        description: "Link copied to clipboard!",
+                                    });
+                                }}
+                                className="max-w-32"
+                            >
+                                Share Report
+                            </Button>
+                        )}
                         {!text && (
                             <div className="flex items-center gap-2 text-sm justify-center">
                                 <span className="opacity-50">Examples:</span>
