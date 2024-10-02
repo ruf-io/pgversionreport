@@ -97,6 +97,16 @@ export default function Parser({ text }: { text: string }) {
         );
     }
 
+    if (result.version.major < 10) {
+        return (
+            <Alert isError={true}>
+                The version you entered is too old. Please enter a version that
+                is 10 or newer. If you are on this version, please consider
+                upgrading as soon as possible since this is an extremely old version.
+            </Alert>
+        );
+    }
+
     // Find the version.
     const versionIndex = sortedVersions.findIndex((version) =>
         version[0].greaterThan(result.version),

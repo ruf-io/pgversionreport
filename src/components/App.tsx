@@ -162,6 +162,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.1 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
                                         setText(version);
+                                        query.data = btoa(version);
                                     }}
                                 >
                                     PG16 on RDS
@@ -173,6 +174,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.1 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
                                         setText(version);
+                                        query.data = btoa(version);
                                     }}
                                 >
                                     RDS Aurora PG16
@@ -184,6 +186,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit";
                                         setText(version);
+                                        query.data = btoa(version);
                                     }}
                                 >
                                     PG16 on Neon
