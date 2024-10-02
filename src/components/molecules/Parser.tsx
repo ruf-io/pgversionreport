@@ -8,6 +8,7 @@ import PerformanceSection from "./PerformanceSection";
 import data from "@/data/pg_release_data";
 import Semver from "@/utils/Semver";
 import { sortedVersions } from "@/utils/postgresDates";
+import Panel from "../atoms/Panel";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type ResolvedData = PromiseResolver<typeof data>;
@@ -197,6 +198,15 @@ export default function Parser({ text }: { text: string }) {
                 version={result.version}
             />
             <hr />
+            <Panel
+                title={`How to Upgrade`}
+                description={`Resources for upgrading your PostgreSQL version.`}
+                size="secondary"
+            >
+                <div className="prose" id="how-to-upgrade">
+                    <p>To upgrade your version of Postgres...</p>
+                </div>
+            </Panel>
         </>
     );
 }

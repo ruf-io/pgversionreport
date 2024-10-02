@@ -194,15 +194,6 @@ function MainView() {
                     </div>
                 </form>
                 <Parser text={text} />
-                <Panel
-                    title={`How to Upgrade`}
-                    description={`Resources for upgrading your PostgreSQL version.`}
-                    size="secondary"
-                >
-                    <div className="prose" id="how-to-upgrade">
-                        <p>To upgrade your version of Postgres...</p>
-                    </div>
-                </Panel>
                 <hr />
                 <p className="text-center text-sm text-muted-foreground pb-12">
                     Made with ❤️ by <a href="https://neon.tech">Neon</a>
