@@ -189,7 +189,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
                         </div>
                     </div>
                 </div>
-                <div className="mx-auto relative w-full max-w-[80%]">
+                <div className="mx-auto relative w-full max-w-[80%] xl:block hidden">
                     <div className="h-8 w-full">
                         {[...Array(Math.floor(numYears))].map((e, i) => (
                             <div
