@@ -149,9 +149,12 @@ function MainView() {
                             <Button
                                 variant="default"
                                 onClick={(e: DefaultPreventor) => {
-                                    navigator.clipboard.writeText(window.location.href);
+                                    navigator.clipboard.writeText(
+                                        window.location.href,
+                                    );
                                     toast({
-                                        description: "Link copied to clipboard!",
+                                        description:
+                                            "Link copied to clipboard!",
                                     });
                                     e.preventDefault();
                                 }}

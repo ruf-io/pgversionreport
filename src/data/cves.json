@@ -331,21 +331,15 @@
                     "references": [
                         {
                             "url": "https://www.postgresql.org/support/security/CVE-2024-0985/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://lists.debian.org/debian-lts-announce/2024/03/msg00017.html",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://saites.dev/projects/personal/postgres-cve-2024-0985/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }
@@ -452,9 +446,7 @@
                     "references": [
                         {
                             "url": "https://gitlab.com/dalibo/postgresql_anonymizer/-/commit/e517b38e62e50871b04011598e73a7308bdae9d9",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 },
@@ -660,9 +652,7 @@
                     "references": [
                         {
                             "url": "https://gitlab.com/dalibo/postgresql_anonymizer/-/commit/f55daadba3fa8226029687964aa8889d01a79778",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }
@@ -686,9 +676,7 @@
                 "affected": [
                     {
                         "defaultStatus": "affected",
-                        "modules": [
-                            "User Session"
-                        ],
+                        "modules": ["User Session"],
                         "product": "pgAdmin 4",
                         "programFiles": [
                             "https://github.com/pgadmin-org/pgadmin4/blob/master/web/pgadmin/utils/session.py"
@@ -751,15 +739,11 @@
                 },
                 "references": [
                     {
-                        "tags": [
-                            "issue-tracking"
-                        ],
+                        "tags": ["issue-tracking"],
                         "url": "https://github.com/pgadmin-org/pgadmin4/issues/7258"
                     },
                     {
-                        "tags": [
-                            "mitigation"
-                        ],
+                        "tags": ["mitigation"],
                         "url": "https://www.shielder.com/advisories/pgadmin-path-traversal_leads_to_unsafe_deserialization_and_rce/"
                     },
                     {
@@ -860,24 +844,16 @@
                     "title": "CVE Program Container",
                     "references": [
                         {
-                            "tags": [
-                                "issue-tracking",
-                                "x_transferred"
-                            ],
+                            "tags": ["issue-tracking", "x_transferred"],
                             "url": "https://github.com/pgadmin-org/pgadmin4/issues/7258"
                         },
                         {
-                            "tags": [
-                                "mitigation",
-                                "x_transferred"
-                            ],
+                            "tags": ["mitigation", "x_transferred"],
                             "url": "https://www.shielder.com/advisories/pgadmin-path-traversal_leads_to_unsafe_deserialization_and_rce/"
                         },
                         {
                             "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/LUYN2JXKKHFSVTASH344TBRGWDH64XQV/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }
@@ -901,9 +877,7 @@
                 "affected": [
                     {
                         "defaultStatus": "affected",
-                        "modules": [
-                            "Utility's Binary Path"
-                        ],
+                        "modules": ["Utility's Binary Path"],
                         "product": "pgAdmin 4",
                         "programFiles": [
                             "https://github.com/pgadmin-org/pgadmin4/blob/master/web/pgadmin/misc/__init__.py"
@@ -966,15 +940,11 @@
                 },
                 "references": [
                     {
-                        "tags": [
-                            "issue-tracking"
-                        ],
+                        "tags": ["issue-tracking"],
                         "url": "https://github.com/pgadmin-org/pgadmin4/issues/7326"
                     },
                     {
-                        "tags": [
-                            "mitigation"
-                        ],
+                        "tags": ["mitigation"],
                         "url": "https://gist.github.com/aelmokhtar/689a8be7e3bd535ec01992d8ec7b2b98"
                     },
                     {
@@ -999,24 +969,16 @@
                     "title": "CVE Program Container",
                     "references": [
                         {
-                            "tags": [
-                                "issue-tracking",
-                                "x_transferred"
-                            ],
+                            "tags": ["issue-tracking", "x_transferred"],
                             "url": "https://github.com/pgadmin-org/pgadmin4/issues/7326"
                         },
                         {
-                            "tags": [
-                                "mitigation",
-                                "x_transferred"
-                            ],
+                            "tags": ["mitigation", "x_transferred"],
                             "url": "https://gist.github.com/aelmokhtar/689a8be7e3bd535ec01992d8ec7b2b98"
                         },
                         {
                             "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GIF5T34JTTYRGIN5YPT366BDFG6452A2/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://www.vicarius.io/vsociety/posts/remote-code-execution-vulnerability-in-pgadmin-cve-2024-3116"
@@ -1093,9 +1055,7 @@
                 "affected": [
                     {
                         "defaultStatus": "affected",
-                        "modules": [
-                            "User Authentication"
-                        ],
+                        "modules": ["User Authentication"],
                         "product": "pgAdmin 4",
                         "programFiles": [
                             "https://github.com/pgadmin-org/pgadmin4/blob/master/web/pgadmin/templates/security/login_user.html"
@@ -1157,9 +1117,7 @@
                 },
                 "references": [
                     {
-                        "tags": [
-                            "issue-tracking"
-                        ],
+                        "tags": ["issue-tracking"],
                         "url": "https://github.com/pgadmin-org/pgadmin4/issues/7945"
                     }
                 ],
@@ -1254,9 +1212,7 @@
                 "affected": [
                     {
                         "defaultStatus": "affected",
-                        "modules": [
-                            "Packaging"
-                        ],
+                        "modules": ["Packaging"],
                         "product": "pgAdmin 4",
                         "programFiles": [
                             "https://github.com/pgadmin-org/pgadmin4/blob/master/pkg/debian/build.sh",
@@ -1319,9 +1275,7 @@
                 },
                 "references": [
                     {
-                        "tags": [
-                            "issue-tracking"
-                        ],
+                        "tags": ["issue-tracking"],
                         "url": "https://github.com/pgadmin-org/pgadmin4/issues/7605"
                     }
                 ],
@@ -1375,10 +1329,7 @@
                     "title": "CVE Program Container",
                     "references": [
                         {
-                            "tags": [
-                                "issue-tracking",
-                                "x_transferred"
-                            ],
+                            "tags": ["issue-tracking", "x_transferred"],
                             "url": "https://github.com/pgadmin-org/pgadmin4/issues/7605"
                         }
                     ]
@@ -1521,9 +1472,7 @@
                         {
                             "vendor": "pgjdbc",
                             "product": "pgjdbc",
-                            "cpes": [
-                                "cpe:2.3:a:pgjdbc:pgjdbc:*:*:*:*:*:*:*:*"
-                            ],
+                            "cpes": ["cpe:2.3:a:pgjdbc:pgjdbc:*:*:*:*:*:*:*:*"],
                             "defaultStatus": "unknown",
                             "versions": [
                                 {
@@ -1606,45 +1555,31 @@
                     "references": [
                         {
                             "url": "https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-24rp-q3w6-vc56",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://www.enterprisedb.com/docs/security/assessments/cve-2024-1597/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://www.enterprisedb.com/docs/jdbc_connector/latest/01_jdbc_rel_notes/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/TZQTSMESZD2RJ5XBPSXH3TIQVUW5DIUU/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://security.netapp.com/advisory/ntap-20240419-0008/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "http://www.openwall.com/lists/oss-security/2024/04/02/6",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         },
                         {
                             "url": "https://lists.debian.org/debian-lts-announce/2024/05/msg00007.html",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }
@@ -1668,9 +1603,7 @@
                 "affected": [
                     {
                         "defaultStatus": "affected",
-                        "modules": [
-                            "pgadmin layout"
-                        ],
+                        "modules": ["pgadmin layout"],
                         "product": "pgAdmin 4",
                         "programFiles": [
                             "https://github.com/pgadmin-org/pgadmin4/blob/master/web/pgadmin/browser/templates/browser/js/utils.js"
@@ -1733,9 +1666,7 @@
                 },
                 "references": [
                     {
-                        "tags": [
-                            "issue-tracking"
-                        ],
+                        "tags": ["issue-tracking"],
                         "url": "https://github.com/pgadmin-org/pgadmin4/issues/7282"
                     },
                     {
@@ -1822,17 +1753,12 @@
                     "title": "CVE Program Container",
                     "references": [
                         {
-                            "tags": [
-                                "issue-tracking",
-                                "x_transferred"
-                            ],
+                            "tags": ["issue-tracking", "x_transferred"],
                             "url": "https://github.com/pgadmin-org/pgadmin4/issues/7282"
                         },
                         {
                             "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/T2YFVCB4HCXU3FQBZ5XTWJZWSZUDNCXE/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }
@@ -1856,9 +1782,7 @@
                 "affected": [
                     {
                         "defaultStatus": "affected",
-                        "modules": [
-                            "Login Module"
-                        ],
+                        "modules": ["Login Module"],
                         "product": "pgAdmin 4",
                         "repo": "https://github.com/pgadmin-org/pgadmin4",
                         "vendor": "pgadmin.org",
@@ -1918,9 +1842,7 @@
                 },
                 "references": [
                     {
-                        "tags": [
-                            "issue-tracking"
-                        ],
+                        "tags": ["issue-tracking"],
                         "url": "https://github.com/pgadmin-org/pgadmin4/issues/7425"
                     },
                     {
@@ -2007,17 +1929,12 @@
                     "title": "CVE Program Container",
                     "references": [
                         {
-                            "tags": [
-                                "issue-tracking",
-                                "x_transferred"
-                            ],
+                            "tags": ["issue-tracking", "x_transferred"],
                             "url": "https://github.com/pgadmin-org/pgadmin4/issues/7425"
                         },
                         {
                             "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/T2YFVCB4HCXU3FQBZ5XTWJZWSZUDNCXE/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }
@@ -2172,9 +2089,7 @@
                     "references": [
                         {
                             "url": "https://www.postgresql.org/support/security/CVE-2024-4317/",
-                            "tags": [
-                                "x_transferred"
-                            ]
+                            "tags": ["x_transferred"]
                         }
                     ]
                 }

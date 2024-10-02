@@ -21,7 +21,8 @@ export class StaticAsyncLoader<T> {
 }
 
 export function ComponentLoader<Props>({
-    loader, props,
+    loader,
+    props,
 }: {
     loader: StaticAsyncLoader<React.ComponentType<Props>>;
     props: Props;
