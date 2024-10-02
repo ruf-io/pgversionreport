@@ -112,6 +112,8 @@ export default function Parser({ text }: { text: string }) {
         version[0].greaterThan(result.version),
     );
     let node: React.ReactNode = null;
+    let minorVersionsBehind = 0;
+    let majorVersionsBehind = 0;
     if (versionIndex !== -1) {
         // Handle semver.
         let versionsAfter = sortedVersions.slice(versionIndex + 1);
@@ -129,6 +131,8 @@ export default function Parser({ text }: { text: string }) {
                 version[0].patch === 0
             );
         });
+        majorVersionsBehind = majors.length;
+        minorVersionsBehind = minors.length;
 
         // Process the date.
         const [, date] = sortedVersions[versionIndex];
@@ -175,48 +179,39 @@ export default function Parser({ text }: { text: string }) {
         );
     }
 
-    // Bail early if there are no results.
-    if (
-        result.bugs.length === 0 &&
-        result.features.length === 0 &&
-        result.performanceImprovements.length === 0
-    ) {
-        return (
-            <>
-                {node}
-                <Alert isError={false}>
-                    No security issues or missing features found in the version
-                    you entered.
-                </Alert>
-            </>
-        );
-    }
-
     // Return the fragment.
     return (
         <>
             <hr />
-            <GeneralStats data={result} />
-            <SecuritySection cves={result.cves} version={result.version} />
-            <BugsSection bugs={result.bugs} version={result.version} />
-            <PerformanceSection
-                performanceImprovements={result.performanceImprovements}
-                version={result.version}
-            />
-            <FeaturesSection
-                features={result.features}
-                version={result.version}
-            />
-            <hr />
-            <Panel
-                title={`How to Upgrade`}
-                description={`Resources for upgrading your PostgreSQL version.`}
-                size="secondary"
-            >
-                <div className="prose" id="how-to-upgrade">
-                    <p>To upgrade your version of Postgres...</p>
-                </div>
-            </Panel>
+            <GeneralStats data={result} latest={
+                majorVersionsBehind === 0 && minorVersionsBehind === 0
+            } />
+            {
+                (majorVersionsBehind !== 0 || minorVersionsBehind !== 0) && (
+                    <>
+                        <SecuritySection cves={result.cves} version={result.version} />
+                        <BugsSection bugs={result.bugs} version={result.version} />
+                        <PerformanceSection
+                            performanceImprovements={result.performanceImprovements}
+                            version={result.version}
+                        />
+                        <FeaturesSection
+                            features={result.features}
+                            version={result.version}
+                        />
+                        <hr />
+                        <Panel
+                            title={`How to Upgrade`}
+                            description={`Resources for upgrading your PostgreSQL version.`}
+                            size="secondary"
+                        >
+                            <div className="prose" id="how-to-upgrade">
+                                <p>To upgrade your version of Postgres...</p>
+                            </div>
+                        </Panel>
+                    </>
+                )
+            }
         </>
     );
 }
