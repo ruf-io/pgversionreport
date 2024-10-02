@@ -11,7 +11,10 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { Info } from "lucide-react";
-import Panel from "./atoms/Panel";
+
+interface DefaultPreventor {
+    preventDefault: () => void;
+}
 
 class DataQuery {
     url: URL | null;
@@ -141,11 +144,12 @@ function MainView() {
                         {text && (
                             <Button
                                 variant="default"
-                                onClick={() => {
+                                onClick={(e: DefaultPreventor) => {
                                     navigator.clipboard.writeText(window.location.href);
                                     toast({
                                         description: "Link copied to clipboard!",
                                     });
+                                    e.preventDefault();
                                 }}
                                 className="max-w-32"
                             >
