@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Parser from "./molecules/Parser";
+import { useEffect, useState, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
@@ -11,6 +10,11 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { Info } from "lucide-react";
+import { ComponentLoader, StaticAsyncLoader } from "@/utils/StaticAsyncLoader";
+
+const parserLoader = new StaticAsyncLoader(
+    import("./molecules/Parser").then((mod) => mod.default),
+);
 
 interface DefaultPreventor {
     preventDefault: () => void;
@@ -199,7 +203,9 @@ function MainView() {
                         )}
                     </div>
                 </form>
-                <Parser text={text} />
+                <Suspense fallback={null}>
+                    <ComponentLoader loader={parserLoader} props={{ text }} />
+                </Suspense>
                 <hr />
                 <p className="text-center text-sm text-muted-foreground pb-12">
                     Made with ❤️ by <a href="https://neon.tech">Neon</a>
