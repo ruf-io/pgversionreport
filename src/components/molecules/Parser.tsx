@@ -9,6 +9,7 @@ import data from "@/data/pg_release_data";
 import Semver from "@/utils/Semver";
 import { sortedVersions } from "@/utils/postgresDates";
 import Panel from "../atoms/Panel";
+import HowToUpgrade from "./HowToUpgrade";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type ResolvedData = PromiseResolver<typeof data>;
@@ -112,7 +113,6 @@ export default function Parser({ text }: { text: string }) {
     const versionIndex = sortedVersions.findIndex((version) =>
         version[0].greaterThan(result.version),
     );
-    let node: React.ReactNode = null;
     let minorVersionsBehind = 0;
     let majorVersionsBehind = 0;
     if (versionIndex !== -1) {
@@ -163,21 +163,6 @@ export default function Parser({ text }: { text: string }) {
         if (diffInDays > 1) {
             ago = `${Math.floor(diffInDays)} day${diffInDays === 1 ? "" : "s"} ago`;
         }
-
-        // Set the version node.
-        node = (
-            <p>
-                <span className="font-bold">
-                    PostgreSQL {result.version.major}.{result.version.minor}.
-                    {result.version.patch}
-                </span>{" "}
-                was released on{" "}
-                <span className="font-bold">
-                    {date.toLocaleDateString()} ({ago})
-                </span>
-                . {latest}
-            </p>
-        );
     }
 
     // Return the fragment.
@@ -209,9 +194,7 @@ export default function Parser({ text }: { text: string }) {
                         description={`Resources for upgrading your PostgreSQL version.`}
                         size="secondary"
                     >
-                        <div className="prose" id="how-to-upgrade">
-                            <p>To upgrade your version of Postgres...</p>
-                        </div>
+                        <HowToUpgrade />
                     </Panel>
                 </>
             )}
