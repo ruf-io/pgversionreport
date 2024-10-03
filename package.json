@@ -52,6 +52,7 @@
         "dev": "vite",
         "build": "vite build && tsx serverRenderer.tsx",
         "ts-check": "tsc --noEmit --skipLibCheck",
+        "lint": "prettier --check .",
         "lint:fix": "prettier --write ."
     }
 }
