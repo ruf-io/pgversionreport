@@ -32,7 +32,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { CollapsibleDataItem } from "@/components/atoms/CollapsibleDataItem";
 import Semver from "@/utils/Semver";
 import MarkdownBlock from "../atoms/MarkdownBlock";
