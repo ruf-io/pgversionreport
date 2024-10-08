@@ -6,6 +6,8 @@ const CVE = z.object({
     description: z.string(),
     fixedIn: z.string(),
     contributors: z.array(z.string()),
+    impactScore: z.number(),
+    severity: z.enum(["NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL"])
 });
 
 const Bug = z.object({
@@ -33,8 +35,8 @@ const PerformanceImprovement = z.object({
 });
 
 export const MainSchema = z.object({
-    cves: z.array(CVE),
+    security: z.array(CVE),
     bugs: z.array(Bug),
     features: z.array(Feature),
-    performanceImprovements: z.array(PerformanceImprovement),
+    performance: z.array(PerformanceImprovement),
 });

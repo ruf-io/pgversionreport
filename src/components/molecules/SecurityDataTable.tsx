@@ -32,6 +32,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { Badge } from "@/components/ui/Badge";
 import { CollapsibleDataItem } from "@/components/atoms/CollapsibleDataItem";
 import Semver from "@/utils/Semver";
 import MarkdownBlock from "../atoms/MarkdownBlock";
@@ -69,12 +70,16 @@ export const columns: ColumnDef<CVE>[] = [
         accessorKey: "title",
         header: "Title",
         cell: ({ row }) => (
-            <CollapsibleDataItem title={row.getValue("title")}>
+            <CollapsibleDataItem title={row.getValue("title")} isMarkdown={true}>
                 <div className="prose prose-sm">
                     <p>
                         Fixed in:{" "}
                         <InlineCode>{row.original.fixedIn}</InlineCode>{" "}
-                        Contributor(s): {row.original.contributors.join(", ")}
+                        {row.original.contributors.length && (
+                            <span>
+                                Contributor{row.original.contributors.length > 1 && "s"}: {row.original.contributors.join(", ")}
+                            </span>
+                        )}
                     </p>
                     <MarkdownBlock text={row.original.description} />
                     <p>
@@ -119,7 +124,9 @@ export const columns: ColumnDef<CVE>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => row.getValue("severity"),
+        cell: ({ row }) => {
+            return <div className="flex items-center justify-center gap-2">{row.original.impactScore}<Badge variant={['HIGH', 'CRITICAL'].includes(row.getValue('severity')) ? 'destructive' : 'secondary'}>{row.getValue('severity')}</Badge></div>
+        }
     },
     {
         id: "actions",

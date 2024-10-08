@@ -50,7 +50,7 @@ export default function TimelineChart({
                 <TooltipProvider key={i}>
                     <Tooltip>
                         <TooltipTrigger
-                            className={`relative inline-block text-xs text-white h-auto leading-6 ${isCurrentVersion(minor) ? "shadow-lg border border-black bg-foreground/80" : "bg-muted-foreground/80 hover:bg-muted-foreground/90"} `}
+                            className={`cursor-default relative inline-block text-xs h-auto leading-6 ${isCurrentVersion(minor) ? "shadow-lg bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground/50"} `}
                             style={{
                                 width: `${
                                     i < data.minorVersions.length - 1
@@ -68,10 +68,10 @@ export default function TimelineChart({
                                 }%`,
                             }}
                         >
-                            <div className="absolute w-px h-full bg-black opacity-20" />
+                            <div className="absolute w-px h-full bg-secondary-foreground/10" />
                             <span className="ml-1">.{minor.minorVersion}</span>
                             {isCurrentVersion(minor) && (
-                                <div className="absolute -top-10 block -left-8 text-sm text-primary-foreground bg-primary border border-foreground rounded w-28 px-2 py-1">
+                                <div className="absolute -top-10 block -left-9 text-sm text-primary-foreground bg-primary border border-primary-foreground rounded w-28 px-2 py-1 shadow-xl z-10 before:w-4 before:h-4 before:rotate-45 before:bg-primary before:absolute before:-z-10 before:-bottom-1 before:left-0  before:right-0 before:mx-auto">
                                     You are here.
                                 </div>
                             )}

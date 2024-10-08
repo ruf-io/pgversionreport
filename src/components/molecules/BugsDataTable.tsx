@@ -42,12 +42,16 @@ export const columns: ColumnDef<Bug>[] = [
         accessorKey: "title",
         header: "Title",
         cell: ({ row }) => (
-            <CollapsibleDataItem title={row.getValue("title")}>
+            <CollapsibleDataItem title={row.getValue("title")} isMarkdown={true}>
                 <div className="prose prose-sm">
                     <p>
                         Fixed in:{" "}
                         <InlineCode>{row.original.fixedIn}</InlineCode>{" "}
-                        Contributor(s): {row.original.contributors.join(", ")}
+                        {row.original.contributors.length && (
+                            <span>
+                                Contributor{row.original.contributors.length > 1 && "s"}: {row.original.contributors.join(", ")}
+                            </span>
+                        )}
                     </p>
                     <MarkdownBlock text={row.original.description} />
                     <p>
@@ -92,7 +96,7 @@ export function BugsDataTable({ data, version }: Props) {
             columnFilters,
             columnVisibility,
             rowSelection,
-        },
+        }
     });
 
     return (

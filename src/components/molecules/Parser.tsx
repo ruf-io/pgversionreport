@@ -40,19 +40,25 @@ function parseText(text: string, data: ResolvedData) {
         bugs: data.bugs.filter((bug) => {
             // Check if the bug is fixed in the version.
             const fixedIn = getFromCache(bug.fixedIn);
-            return fixedIn.greaterThan(version) && !bug.cve;
+            return (
+                fixedIn.greaterThan(version) && fixedIn.major === version.major
+            );
         }),
-        cves: data.bugs.filter((bug) => {
+        cves: data.security.filter((cve) => {
             // Check if the bug is fixed in the version.
-            const fixedIn = getFromCache(bug.fixedIn);
-            return fixedIn.greaterThan(version) && bug.cve;
+            const fixedIn = getFromCache(cve.fixedIn);
+            return (
+                fixedIn.greaterThan(version) &&
+                fixedIn.major === version.major &&
+                cve.cve
+            );
         }),
         features: data.features.filter((feature) => {
             // Check if the feature is available in the version.
             const sinceVersion = getFromCache(feature.sinceVersion);
             return sinceVersion.greaterThan(version);
         }),
-        performanceImprovements: data.performanceImprovements.filter(
+        performanceImprovements: data.performance.filter(
             (performanceImprovement) => {
                 // Check if the performance improvement is available in the version.
                 const sinceVersion = getFromCache(

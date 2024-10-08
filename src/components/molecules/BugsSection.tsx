@@ -14,7 +14,7 @@ type Props = {
 
 export default function BugsSection({ bugs, version }: Props) {
     return (
-        <div className="relative" id="bugs">
+        <div className="relative">
             <hr />
             <div className="flex items-center mt-4 gap-2">
                 <Bug className="h-6 w-6 text-foreground" />

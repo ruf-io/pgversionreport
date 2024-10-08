@@ -9,7 +9,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { Info } from "lucide-react";
+import { Info, Copy } from "lucide-react";
 import { ComponentLoader, StaticAsyncLoader } from "@/utils/StaticAsyncLoader";
 
 const parserLoader = new StaticAsyncLoader(
@@ -73,12 +73,12 @@ function MainView() {
     return (
         <div
             className={`flex ${
-                !text ? "items-center justify-center min-h-screen" : ""
+                text ? "bg-background" : "items-center justify-center min-h-screen"
             }`}
         >
             <div
                 className={`${
-                    !text ? "max-w-md" : "max-w-7xl"
+                    !text ? "max-w-2xl" : "max-w-7xl"
                 } mx-auto w-full flex-col space-y-6 justify-center`}
             >
                 {!text ? (
@@ -94,8 +94,16 @@ function MainView() {
                         </div>
                         <div className="flex items-center justify-center gap-4 font-mono text-lg">
                             <span className="opacity-50">postgres =&gt;</span>
-                            <div className="inline-block border border-zinc-400/25 bg-zinc-300/25 px-8 py-2 rounded-xl">
+                            <div className="inline-block border pl-4 pr-12 py-2 rounded-xl relative cursor-pointer group" onClick={(e: DefaultPreventor) => {
+                                    navigator.clipboard.writeText("SELECT version();");
+                                    toast({
+                                        description:
+                                            "SQL copied to clipboard!",
+                                    });
+                                    e.preventDefault();
+                                }}>
                                 SELECT version();
+                                <Copy className="absolute right-2 top-3 rounded text-muted-foreground/75 p-0.5 h-5 w-5 group-hover:bg-muted-foreground/10" />
                             </div>
                         </div>
                     </>
@@ -118,7 +126,7 @@ function MainView() {
                                 </Label>
                                 <Popover>
                                     <PopoverTrigger>
-                                        <div className="hover:bg-zinc-500/10 p-0.5 rounded">
+                                        <div className="hover:bg-muted-foreground/10 p-0.5 rounded">
                                             <Info
                                                 size={16}
                                                 className="opacity-50"
@@ -135,7 +143,7 @@ function MainView() {
                                 </Popover>
                             </div>
                             <Input
-                                className={text && "text-muted-foreground"}
+                                className={text ? "text-muted-foreground" : 'shadow-lg text-lg h-12'}
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
@@ -145,26 +153,8 @@ function MainView() {
                                 placeholder="PostgreSQL 99.9 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.1 20240522 (Red Hat 13.3.1-1), 64-bit"
                             />
                         </div>
-                        {text && (
-                            <Button
-                                variant="default"
-                                onClick={(e: DefaultPreventor) => {
-                                    navigator.clipboard.writeText(
-                                        window.location.href,
-                                    );
-                                    toast({
-                                        description:
-                                            "Link copied to clipboard!",
-                                    });
-                                    e.preventDefault();
-                                }}
-                                className="max-w-32"
-                            >
-                                Share Report
-                            </Button>
-                        )}
                         {!text && (
-                            <div className="flex items-center gap-2 text-sm justify-center">
+                            <div className="flex items-center gap-2 text-sm justify-center pb-32">
                                 <span className="opacity-50">Examples:</span>
                                 <Button
                                     variant="outline"
@@ -176,7 +166,7 @@ function MainView() {
                                         query.data = btoa(version);
                                     }}
                                 >
-                                    PG16 on RDS
+                                    RDS (16)
                                 </Button>
                                 <Button
                                     size="badge"
@@ -188,7 +178,20 @@ function MainView() {
                                         query.data = btoa(version);
                                     }}
                                 >
-                                    RDS Aurora PG16
+                                    RDS Aurora (16)
+                                </Button>
+                                
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.5 on x86_64-pc-linux-gnu, compiled by Debian clang version 12.0.1, 64-bit";
+                                        setText(version);
+                                        query.data = btoa(version);
+                                    }}
+                                >
+                                    AlloyDB (15)
                                 </Button>
                                 <Button
                                     size="badge"
@@ -200,19 +203,83 @@ function MainView() {
                                         query.data = btoa(version);
                                     }}
                                 >
-                                    PG16 on Neon
+                                    Neon (16)
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.1 20240522 (Red Hat 13.3.1-1), 64-bit";
+                                        setText(version);
+                                        query.data = btoa(version);
+                                    }}
+                                >
+                                    DO (16)
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.5 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
+                                        setText(version);
+                                        query.data = btoa(version);
+                                    }}
+                                >
+                                    Xata
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.6 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 13.2.0, 64-bit";
+                                        setText(version);
+                                        query.data = btoa(version);
+                                    }}
+                                >
+                                    Supabase
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.8 (Debian 15.8-1.pgdg120+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit";
+                                        setText(version);
+                                        query.data = btoa(version);
+                                    }}
+                                >
+                                    Thenile
                                 </Button>
                             </div>
                         )}
                     </div>
                 </form>
+                <div className="relative"><Button
+                variant="default"
+                onClick={(e: DefaultPreventor) => {
+                    navigator.clipboard.writeText(window.location.href);
+                    toast({
+                        description: "Link copied to clipboard!",
+                    });
+                    e.preventDefault();
+                }}
+                className="absolute top-4 right-0 max-w-32"
+            >
+                Share Report
+            </Button>
                 <Suspense fallback={null}>
                     <ComponentLoader loader={parserLoader} props={{ text }} />
                 </Suspense>
-                <hr />
-                <p className="text-center text-sm text-muted-foreground pb-12">
-                    Made with ❤️ by <a href="https://neon.tech">Neon</a>
-                </p>
+                </div>
+                <div className={`${text ? "" : "absolute bottom-0 left-20 right-20"}`}>
+                  <hr />
+                  <p className="text-center text-sm text-muted-foreground pb-12 pt-6">
+                      Made with ❤️ by <a href="https://neon.tech">Neon</a>
+                  </p>
+                </div>
             </div>
         </div>
     );
@@ -220,7 +287,7 @@ function MainView() {
 
 export default function App() {
     return (
-        <div className="container">
+        <div className="bg-slate-500/10">
             <MainView />
             <Toaster />
         </div>
