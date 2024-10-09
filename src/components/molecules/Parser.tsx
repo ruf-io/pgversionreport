@@ -58,15 +58,13 @@ function parseText(text: string, data: ResolvedData) {
             const sinceVersion = getFromCache(feature.sinceVersion);
             return sinceVersion.greaterThan(version);
         }),
-        performance: data.performance.filter(
-            (performanceImprovement) => {
-                // Check if the performance improvement is available in the version.
-                const sinceVersion = getFromCache(
-                    performanceImprovement.sinceVersion,
-                );
-                return sinceVersion.greaterThan(version);
-            },
-        ),
+        performance: data.performance.filter((performanceImprovement) => {
+            // Check if the performance improvement is available in the version.
+            const sinceVersion = getFromCache(
+                performanceImprovement.sinceVersion,
+            );
+            return sinceVersion.greaterThan(version);
+        }),
     };
 }
 

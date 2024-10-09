@@ -152,7 +152,9 @@ function MainView() {
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
-                                    const res = versionRegex.exec(e.target.value);
+                                    const res = versionRegex.exec(
+                                        e.target.value,
+                                    );
                                     if (res) {
                                         query.version = res[1];
                                     }
