@@ -39,18 +39,14 @@ import InlineCode from "../atoms/InlineCode";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
-type PerformanceImprovements = PromiseResolver<
-    typeof data
->["performanceImprovements"];
+type PerformanceImprovements = PromiseResolver<typeof data>["performance"];
 
 type Props = {
     data: PerformanceImprovements;
     version: Semver;
 };
 
-type PerformanceImprovement = PromiseResolver<
-    typeof data
->["performanceImprovements"][0];
+type PerformanceImprovement = PromiseResolver<typeof data>["performance"][0];
 export const columns: ColumnDef<PerformanceImprovement>[] = [
     {
         accessorKey: "title",

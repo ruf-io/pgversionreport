@@ -149,7 +149,7 @@ for (let i = 0; i < sortedVersions.length; i++) {
         const sinceVersion = getFromCache(feature.sinceVersion);
         return sinceVersion.greaterThan(version);
     });
-    const performanceImprovements = releaseData.performanceImprovements.filter(
+    const performanceImprovements = releaseData.performance.filter(
         (performanceImprovement) => {
             const sinceVersion = getFromCache(
                 performanceImprovement.sinceVersion,

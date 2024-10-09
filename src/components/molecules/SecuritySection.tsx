@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import Semver from "@/utils/Semver";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
-type CVEs = PromiseResolver<typeof data>["cves"];
+type CVEs = PromiseResolver<typeof data>["security"];
 type Props = {
     cves: CVEs;
     version: Semver;

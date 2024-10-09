@@ -40,14 +40,14 @@ import InlineCode from "../atoms/InlineCode";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
-type CVEs = PromiseResolver<typeof data>["cves"];
+type CVEs = PromiseResolver<typeof data>["security"];
 
 type Props = {
     data: CVEs;
     version: Semver;
 };
 
-type CVE = PromiseResolver<typeof data>["cves"][0];
+type CVE = PromiseResolver<typeof data>["security"][0];
 export const columns: ColumnDef<CVE>[] = [
     {
         accessorKey: "cve",

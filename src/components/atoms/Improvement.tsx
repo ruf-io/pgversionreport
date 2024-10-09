@@ -2,7 +2,7 @@ import type data from "@/data/pg_release_data";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
-type Improvement = PromiseResolver<typeof data>["performanceImprovements"][0];
+type Improvement = PromiseResolver<typeof data>["performance"][0];
 
 export default function Improvement({
     improvement,

@@ -19,7 +19,7 @@ export default function OverviewStats({ data }: { data: Data }) {
                     </CardHeader>
                     <CardContent>
                         <div className="text-4xl font-bold">
-                            {data.cves.length}
+                            {data.security.length}
                         </div>
                         <p className="mt-1 text-sm text-muted-foreground">
                             CVEs fixed after {data.version.major}.
@@ -57,7 +57,7 @@ export default function OverviewStats({ data }: { data: Data }) {
                     </CardHeader>
                     <CardContent>
                         <div className="text-4xl font-bold">
-                            {data.performanceImprovements.length}
+                            {data.performance.length}
                         </div>
                         <p className="mt-1 text-sm text-muted-foreground">
                             improvements after {data.version.major}.

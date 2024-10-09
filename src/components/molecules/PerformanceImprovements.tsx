@@ -4,9 +4,7 @@ import Panel from "../atoms/Panel";
 import Improvement from "../atoms/Improvement";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
-type PerformanceImprovements = PromiseResolver<
-    typeof data
->["performanceImprovements"];
+type PerformanceImprovements = PromiseResolver<typeof data>["performance"];
 
 export default function PerformanceImprovements({
     performanceImprovements,
