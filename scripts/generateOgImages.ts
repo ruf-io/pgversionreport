@@ -131,7 +131,10 @@ for (let i = 0; i < sortedVersions.length; i++) {
         : `Postgres ${version.major}.${version.minor} is not the latest version`;
 
     // Figure out the bugs, features, and performance improvements.
-    const { bugs, features, security, performance } = parseVersion(version, releaseData as any);
+    const { bugs, features, security, performance } = parseVersion(
+        version,
+        releaseData as any,
+    );
 
     // Get the subtitle.
     const chunks: string[] = [];
@@ -142,9 +145,7 @@ for (let i = 0; i < sortedVersions.length; i++) {
         chunks.push(`${features.length} new features`);
     }
     if (performance.length > 0) {
-        chunks.push(
-            `${performance.length} performance improvements`,
-        );
+        chunks.push(`${performance.length} performance improvements`);
     }
     const subtitle = `There are ${chunks.join(", ")} in newer versions`;
 
@@ -177,10 +178,7 @@ for (let i = 0; i < sortedVersions.length; i++) {
     });
     cards.push({
         input: generateCard(
-            readFileSync(
-                join(__dirname, "assets", "performance.svg"),
-                "utf-8",
-            ),
+            readFileSync(join(__dirname, "assets", "performance.svg"), "utf-8"),
             "Perf Boosts",
             performance.length,
             // darkened green
