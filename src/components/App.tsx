@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/popover";
 import { Info, Copy } from "lucide-react";
 import { ComponentLoader, StaticAsyncLoader } from "@/utils/StaticAsyncLoader";
+import { versionRegex } from "@/utils/regexes";
 
 const parserLoader = new StaticAsyncLoader(
     import("./molecules/Parser").then((mod) => mod.default),
@@ -31,18 +32,18 @@ class DataQuery {
         this.url = new URL(window.location.href);
     }
 
-    get data() {
-        return this.url?.searchParams.get("data") || "";
+    get version() {
+        return this.url?.searchParams.get("version") || "";
     }
 
-    set data(data: string | null) {
+    set version(version: string | null) {
         if (!this.url) {
             return;
         }
-        if (data) {
-            this.url.searchParams.set("data", data);
+        if (version) {
+            this.url.searchParams.set("version", version);
         } else {
-            this.url.searchParams.delete("data");
+            this.url.searchParams.delete("version");
         }
         window.history.replaceState({}, "", this.url.toString());
     }
@@ -57,15 +58,9 @@ function MainView() {
 
     // Handle the component mounting and the window hash.
     useEffect(() => {
-        if (query.data) {
-            // Decode the hash.
-            let decoded = "";
-            try {
-                decoded = atob(query.data);
-            } catch {}
-
-            // Set the text.
-            setText(decoded);
+        if (query.version) {
+            // Set the text to a partial version string. This allows us to DRY the code a bit.
+            setText(`PostgreSQL ${query.version}`);
         }
     }, []);
 
@@ -157,7 +152,10 @@ function MainView() {
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
-                                    query.data = btoa(e.target.value);
+                                    const res = versionRegex.exec(e.target.value);
+                                    if (res) {
+                                        query.version = res[1];
+                                    }
                                 }}
                                 id="name"
                                 placeholder="PostgreSQL 99.9 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.1 20240522 (Red Hat 13.3.1-1), 64-bit"
@@ -173,7 +171,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.1 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
                                         setText(version);
-                                        query.data = btoa(version);
+                                        query.version = "16.1";
                                     }}
                                 >
                                     RDS (16)
@@ -185,7 +183,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.1 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
                                         setText(version);
-                                        query.data = btoa(version);
+                                        query.version = "16.1";
                                     }}
                                 >
                                     RDS Aurora (16)
@@ -198,7 +196,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 15.5 on x86_64-pc-linux-gnu, compiled by Debian clang version 12.0.1, 64-bit";
                                         setText(version);
-                                        query.data = btoa(version);
+                                        query.version = "15.5";
                                     }}
                                 >
                                     AlloyDB (15)
@@ -210,7 +208,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit";
                                         setText(version);
-                                        query.data = btoa(version);
+                                        query.version = "16.4";
                                     }}
                                 >
                                     Neon (16)
@@ -222,7 +220,7 @@ function MainView() {
                                         const version =
                                             "PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 13.3.1 20240522 (Red Hat 13.3.1-1), 64-bit";
                                         setText(version);
-                                        query.data = btoa(version);
+                                        query.version = "16.4";
                                     }}
                                 >
                                     DO (16)

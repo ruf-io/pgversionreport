@@ -1,8 +1,6 @@
 import Semver from "./src/utils/Semver";
 import versions from "./src/data/version_dates.json";
 
-const versionRegex = /PostgreSQL ([0-9.]+)/;
-
 export default async function middleware(request: Request) {
     const url = new URL(request.url);
     if (url.pathname === "/") {
@@ -14,14 +12,8 @@ export default async function middleware(request: Request) {
         let ogUrl = `${url.origin}/images/default_og.png`;
         try {
             // Try to decode the data.
-            const data = atob(url.searchParams.get("data"));
-
-            // Extract the version.
-            const versionMatch = data.match(versionRegex);
-            if (!versionMatch) {
-                throw 1; // Break out of this block.
-            }
-            const version = new Semver(versionMatch[1]);
+            const versionStr = url.searchParams.get("version");
+            const version = new Semver(versionStr);
 
             // Check if the version is within the data.
             const shortenedVersion = `${version.major}.${version.minor}`;

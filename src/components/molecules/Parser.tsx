@@ -10,11 +10,11 @@ import Semver from "@/utils/Semver";
 import { sortedVersions } from "@/utils/postgresDates";
 import Panel from "../atoms/Panel";
 import HowToUpgrade from "./HowToUpgrade";
+import { versionRegex } from "@/utils/regexes";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type ResolvedData = PromiseResolver<typeof data>;
 
-const versionRegex = /PostgreSQL ([0-9.]+)/;
 const semverCache: Map<string, Semver> = new Map();
 
 function getFromCache(version: string) {
