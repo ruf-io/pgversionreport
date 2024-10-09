@@ -143,7 +143,7 @@ function MainView() {
                                 </Popover>
                             </div>
                             <Input
-                                className={text ? "text-muted-foreground" : 'shadow-lg text-lg h-12'}
+                                className={text ? "text-muted-foreground max-w-3xl" : 'shadow-lg text-lg h-12 placeholder:text-muted-foreground/25'}
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
@@ -216,42 +216,6 @@ function MainView() {
                                     }}
                                 >
                                     DO (16)
-                                </Button>
-                                <Button
-                                    size="badge"
-                                    variant="outline"
-                                    onClick={() => {
-                                        const version =
-                                            "PostgreSQL 15.5 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
-                                        setText(version);
-                                        query.data = btoa(version);
-                                    }}
-                                >
-                                    Xata
-                                </Button>
-                                <Button
-                                    size="badge"
-                                    variant="outline"
-                                    onClick={() => {
-                                        const version =
-                                            "PostgreSQL 15.6 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 13.2.0, 64-bit";
-                                        setText(version);
-                                        query.data = btoa(version);
-                                    }}
-                                >
-                                    Supabase
-                                </Button>
-                                <Button
-                                    size="badge"
-                                    variant="outline"
-                                    onClick={() => {
-                                        const version =
-                                            "PostgreSQL 15.8 (Debian 15.8-1.pgdg120+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit";
-                                        setText(version);
-                                        query.data = btoa(version);
-                                    }}
-                                >
-                                    Thenile
                                 </Button>
                             </div>
                         )}

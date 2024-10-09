@@ -20,12 +20,7 @@ function UpToDate() {
                 You are up to date!
             </h2>
             <p className="text-center">
-                You are using the latest version of PostgreSQL. Are you getting
-                frustrated with manually patching your PostgreSQL instance?{" "}
-                <a href="https://neon.tech" className="hover:underline">
-                    Neon makes it easy to be on the latest version of PostgreSQL
-                    and manages your instance for you!
-                </a>
+                You are using the latest major and minor version of PostgreSQL!
             </p>
         </div>
     );
