@@ -5,7 +5,8 @@ type Props = {
     size?: "primary" | "secondary";
 };
 
-const slug = (title: string) => title.toLowerCase().replace(/\W+/g, " ").trim().replace(/\s+/g, "-");
+const slug = (title: string) =>
+    title.toLowerCase().replace(/\W+/g, " ").trim().replace(/\s+/g, "-");
 
 export default function Panel({
     title,
@@ -23,7 +24,9 @@ export default function Panel({
                 >
                     <a href={`#${slug(title)}`} id={slug(title)}>
                         {title}
-                        <span className="ml-2 group-hover:visible invisible opacity-50">#</span>
+                        <span className="ml-2 group-hover:visible invisible opacity-50">
+                            #
+                        </span>
                     </a>
                 </h2>
                 {description && (

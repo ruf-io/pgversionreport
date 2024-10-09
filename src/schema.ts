@@ -7,7 +7,7 @@ const CVE = z.object({
     fixedIn: z.string(),
     contributors: z.array(z.string()),
     impactScore: z.number(),
-    severity: z.enum(["NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL"])
+    severity: z.enum(["NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL"]),
 });
 
 const Bug = z.object({

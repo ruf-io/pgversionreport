@@ -73,7 +73,9 @@ function MainView() {
     return (
         <div
             className={`flex ${
-                text ? "bg-background" : "items-center justify-center min-h-screen"
+                text
+                    ? "bg-background"
+                    : "items-center justify-center min-h-screen"
             }`}
         >
             <div
@@ -94,14 +96,18 @@ function MainView() {
                         </div>
                         <div className="flex items-center justify-center gap-4 font-mono text-lg">
                             <span className="opacity-50">postgres =&gt;</span>
-                            <div className="inline-block border pl-4 pr-12 py-2 rounded-xl relative cursor-pointer group" onClick={(e: DefaultPreventor) => {
-                                    navigator.clipboard.writeText("SELECT version();");
+                            <div
+                                className="inline-block border pl-4 pr-12 py-2 rounded-xl relative cursor-pointer group"
+                                onClick={(e: DefaultPreventor) => {
+                                    navigator.clipboard.writeText(
+                                        "SELECT version();",
+                                    );
                                     toast({
-                                        description:
-                                            "SQL copied to clipboard!",
+                                        description: "SQL copied to clipboard!",
                                     });
                                     e.preventDefault();
-                                }}>
+                                }}
+                            >
                                 SELECT version();
                                 <Copy className="absolute right-2 top-3 rounded text-muted-foreground/75 p-0.5 h-5 w-5 group-hover:bg-muted-foreground/10" />
                             </div>
@@ -143,7 +149,11 @@ function MainView() {
                                 </Popover>
                             </div>
                             <Input
-                                className={text ? "text-muted-foreground max-w-3xl" : 'shadow-lg text-lg h-12 placeholder:text-muted-foreground/25'}
+                                className={
+                                    text
+                                        ? "text-muted-foreground max-w-3xl"
+                                        : "shadow-lg text-lg h-12 placeholder:text-muted-foreground/25"
+                                }
                                 value={text}
                                 onChange={(e) => {
                                     setText(e.target.value);
@@ -180,7 +190,7 @@ function MainView() {
                                 >
                                     RDS Aurora (16)
                                 </Button>
-                                
+
                                 <Button
                                     size="badge"
                                     variant="outline"
@@ -221,28 +231,34 @@ function MainView() {
                         )}
                     </div>
                 </form>
-                <div className="relative"><Button
-                variant="default"
-                onClick={(e: DefaultPreventor) => {
-                    navigator.clipboard.writeText(window.location.href);
-                    toast({
-                        description: "Link copied to clipboard!",
-                    });
-                    e.preventDefault();
-                }}
-                className="absolute top-4 right-0 max-w-32"
-            >
-                Share Report
-            </Button>
-                <Suspense fallback={null}>
-                    <ComponentLoader loader={parserLoader} props={{ text }} />
-                </Suspense>
+                <div className="relative">
+                    <Button
+                        variant="default"
+                        onClick={(e: DefaultPreventor) => {
+                            navigator.clipboard.writeText(window.location.href);
+                            toast({
+                                description: "Link copied to clipboard!",
+                            });
+                            e.preventDefault();
+                        }}
+                        className="absolute top-4 right-0 max-w-32"
+                    >
+                        Share Report
+                    </Button>
+                    <Suspense fallback={null}>
+                        <ComponentLoader
+                            loader={parserLoader}
+                            props={{ text }}
+                        />
+                    </Suspense>
                 </div>
-                <div className={`${text ? "" : "absolute bottom-0 left-20 right-20"}`}>
-                  <hr />
-                  <p className="text-center text-sm text-muted-foreground pb-12 pt-6">
-                      Made with ❤️ by <a href="https://neon.tech">Neon</a>
-                  </p>
+                <div
+                    className={`${text ? "" : "absolute bottom-0 left-20 right-20"}`}
+                >
+                    <hr />
+                    <p className="text-center text-sm text-muted-foreground pb-12 pt-6">
+                        Made with ❤️ by <a href="https://neon.tech">Neon</a>
+                    </p>
                 </div>
             </div>
         </div>

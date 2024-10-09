@@ -15,7 +15,11 @@ type Props = {
     isMarkdown?: boolean;
 };
 
-export function CollapsibleDataItem({ title, children, isMarkdown=false }: Props) {
+export function CollapsibleDataItem({
+    title,
+    children,
+    isMarkdown = false,
+}: Props) {
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
@@ -25,8 +29,9 @@ export function CollapsibleDataItem({ title, children, isMarkdown=false }: Props
             className="space-y-2"
         >
             <div className="flex items-center space-x-4 px-4">
-                <CollapsibleTrigger>{isMarkdown ? (
-                    <MarkdownBlock text={title} />) : title}</CollapsibleTrigger>
+                <CollapsibleTrigger>
+                    {isMarkdown ? <MarkdownBlock text={title} /> : title}
+                </CollapsibleTrigger>
             </div>
             <CollapsibleContent className="px-4 max-w-prose text-muted-foreground">
                 {children}
