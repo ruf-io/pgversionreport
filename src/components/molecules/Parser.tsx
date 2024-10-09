@@ -44,7 +44,7 @@ function parseText(text: string, data: ResolvedData) {
                 fixedIn.greaterThan(version) && fixedIn.major === version.major
             );
         }),
-        cves: data.security.filter((cve) => {
+        security: data.security.filter((cve) => {
             // Check if the bug is fixed in the version.
             const fixedIn = getFromCache(cve.fixedIn);
             return (
@@ -58,7 +58,7 @@ function parseText(text: string, data: ResolvedData) {
             const sinceVersion = getFromCache(feature.sinceVersion);
             return sinceVersion.greaterThan(version);
         }),
-        performanceImprovements: data.performance.filter(
+        performance: data.performance.filter(
             (performanceImprovement) => {
                 // Check if the performance improvement is available in the version.
                 const sinceVersion = getFromCache(
@@ -182,12 +182,12 @@ export default function Parser({ text }: { text: string }) {
             {(majorVersionsBehind !== 0 || minorVersionsBehind !== 0) && (
                 <>
                     <SecuritySection
-                        cves={result.cves}
+                        cves={result.security}
                         version={result.version}
                     />
                     <BugsSection bugs={result.bugs} version={result.version} />
                     <PerformanceSection
-                        performanceImprovements={result.performanceImprovements}
+                        performanceImprovements={result.performance}
                         version={result.version}
                     />
                     <FeaturesSection
