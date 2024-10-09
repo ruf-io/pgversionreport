@@ -4,6 +4,7 @@ import { rmSync, mkdirSync, readFileSync } from "fs";
 import { join } from "path";
 import { sortedVersions } from "@/utils/postgresDates";
 import Semver from "@/utils/Semver";
+import { parseVersion } from "@/components/molecules/Parser";
 
 console.log("Generating OG images for Postgres versions...");
 
@@ -48,17 +49,6 @@ function makeTextSvg(title: string, subtitle?: string) {
     </text>
 ${subtitleSvg}
 </svg>`);
-}
-
-const semverCache: Map<string, Semver> = new Map();
-
-function getFromCache(version: string) {
-    if (semverCache.has(version)) {
-        return semverCache.get(version);
-    }
-    const semver = new Semver(version);
-    semverCache.set(version, semver);
-    return semver;
 }
 
 // Generate a smaller card to fit inside the main card.
@@ -141,34 +131,19 @@ for (let i = 0; i < sortedVersions.length; i++) {
         : `Postgres ${version.major}.${version.minor} is not the latest version`;
 
     // Figure out the bugs, features, and performance improvements.
-    const bugs = releaseData.bugs.filter((bug) => {
-        const fixedIn = getFromCache(bug.fixedIn);
-        return fixedIn.greaterThan(version);
-    });
-    const features = releaseData.features.filter((feature) => {
-        const sinceVersion = getFromCache(feature.sinceVersion);
-        return sinceVersion.greaterThan(version);
-    });
-    const performanceImprovements = releaseData.performance.filter(
-        (performanceImprovement) => {
-            const sinceVersion = getFromCache(
-                performanceImprovement.sinceVersion,
-            );
-            return sinceVersion.greaterThan(version);
-        },
-    );
+    const { bugs, features, security, performance } = parseVersion(version, releaseData as any);
 
     // Get the subtitle.
     const chunks: string[] = [];
-    if (bugs.length > 0) {
-        chunks.push(`${bugs.length} bug fixes`);
+    if (bugs.length > 0 || security.length > 0) {
+        chunks.push(`${bugs.length + security.length} bug fixes`);
     }
     if (features.length > 0) {
         chunks.push(`${features.length} new features`);
     }
-    if (performanceImprovements.length > 0) {
+    if (performance.length > 0) {
         chunks.push(
-            `${performanceImprovements.length} performance improvements`,
+            `${performance.length} performance improvements`,
         );
     }
     const subtitle = `There are ${chunks.join(", ")} in newer versions`;
@@ -176,52 +151,46 @@ for (let i = 0; i < sortedVersions.length; i++) {
     // Draw the image.
     const cards: OverlayOptions[] = [];
     const alignment = 34;
-    if (bugs.length > 0) {
-        cards.push({
-            input: generateCard(
-                readFileSync(join(__dirname, "assets", "bug.svg"), "utf-8"),
-                "Bug Fixes",
-                bugs.length,
-                255,
-                0,
-                0,
+    cards.push({
+        input: generateCard(
+            readFileSync(join(__dirname, "assets", "bug.svg"), "utf-8"),
+            "Bug Fixes",
+            bugs.length,
+            255,
+            0,
+            0,
+        ),
+        left: 450 + alignment,
+        top: 115,
+    });
+    cards.push({
+        input: generateCard(
+            readFileSync(join(__dirname, "assets", "feature.svg"), "utf-8"),
+            "Features",
+            features.length,
+            0,
+            128,
+            0,
+        ),
+        left: 150 + alignment,
+        top: 115,
+    });
+    cards.push({
+        input: generateCard(
+            readFileSync(
+                join(__dirname, "assets", "performance.svg"),
+                "utf-8",
             ),
-            left: 450 + alignment,
-            top: 115,
-        });
-    }
-    if (features.length > 0) {
-        cards.push({
-            input: generateCard(
-                readFileSync(join(__dirname, "assets", "feature.svg"), "utf-8"),
-                "Features",
-                features.length,
-                0,
-                128,
-                0,
-            ),
-            left: 150 + alignment,
-            top: 115,
-        });
-    }
-    if (performanceImprovements.length > 0) {
-        cards.push({
-            input: generateCard(
-                readFileSync(
-                    join(__dirname, "assets", "performance.svg"),
-                    "utf-8",
-                ),
-                "Perf Boosts",
-                performanceImprovements.length,
-                // darkened green
-                0,
-                64,
-                0,
-            ),
-            left: 750 + alignment,
-            top: 115,
-        });
-    }
+            "Perf Boosts",
+            performance.length,
+            // darkened green
+            0,
+            64,
+            0,
+        ),
+        left: 750 + alignment,
+        top: 115,
+    });
 
     image
         .composite([

@@ -26,15 +26,7 @@ function getFromCache(version: string) {
     return semver;
 }
 
-function parseText(text: string, data: ResolvedData) {
-    // Extract the version.
-    const versionMatch = text.match(versionRegex);
-    if (!versionMatch) {
-        return null;
-    }
-    const version = new Semver(versionMatch[1]);
-
-    // Filter the content.
+export function parseVersion(version: Semver, data: ResolvedData) {
     return {
         version,
         bugs: data.bugs.filter((bug) => {
@@ -66,6 +58,18 @@ function parseText(text: string, data: ResolvedData) {
             return sinceVersion.greaterThan(version);
         }),
     };
+}
+
+function parseText(text: string, data: ResolvedData) {
+    // Extract the version.
+    const versionMatch = text.match(versionRegex);
+    if (!versionMatch) {
+        return null;
+    }
+    const version = new Semver(versionMatch[1]);
+
+    // Return the parsed data.
+    return parseVersion(version, data);
 }
 
 export default function Parser({ text }: { text: string }) {
