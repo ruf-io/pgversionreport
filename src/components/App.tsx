@@ -117,8 +117,8 @@ function MainView() {
                 )}
                 <form>
                     <div className="grid w-full items-center gap-4">
-                        <div className="flex flex-col space-y-1.5">
-                            <div className="flex items-center gap-2">
+                        <div className="flex flex-col space-y-1.5  max-w-3xl">
+                            <div className="flex items-center gap-2 ">
                                 <Label
                                     htmlFor="name"
                                     className={`${text && "text-muted-foreground"}`}
@@ -164,8 +164,9 @@ function MainView() {
                             />
                         </div>
                         {!text && (
-                            <div className="flex items-center gap-2 text-sm justify-center pb-32">
+                            <div className="flex items-top gap-2 text-sm justify-center pb-32">
                                 <span className="opacity-50">Examples:</span>
+                                <div className="flex gap-1 flex-wrap">
                                 <Button
                                     variant="outline"
                                     size="badge"
@@ -208,6 +209,18 @@ function MainView() {
                                     variant="outline"
                                     onClick={() => {
                                         const version =
+                                            "PostgreSQL 16.3 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
+                                        setText(version);
+                                        query.version = "16.3";
+                                    }}
+                                >
+                                    Heroku
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
                                             "PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit";
                                         setText(version);
                                         query.version = "16.4";
@@ -227,6 +240,55 @@ function MainView() {
                                 >
                                     DO (16)
                                 </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.6 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 13.2.0, 64-bit";
+                                        setText(version);
+                                        query.version = "15.6";
+                                    }}
+                                >
+                                    Supabase
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.5 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
+                                        setText(version);
+                                        query.version = "15.5";
+                                    }}
+                                >
+                                    Xata
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.8 (Debian 15.8-1.pgdg120+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit";
+                                        setText(version);
+                                        query.version = "15.5";
+                                    }}
+                                >
+                                    TheNile
+                                </Button>
+                                <Button
+                                    size="badge"
+                                    variant="outline"
+                                    onClick={() => {
+                                        const version =
+                                            "PostgreSQL 15.8 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, 64-bit";
+                                        setText(version);
+                                        query.version = "15.8";
+                                    }}
+                                >
+                                    Tembo
+                                </Button>
+                                </div>
                             </div>
                         )}
                     </div>
