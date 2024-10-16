@@ -232,19 +232,23 @@ function MainView() {
                     </div>
                 </form>
                 <div className="relative">
-                    <Button
-                        variant="default"
-                        onClick={(e: DefaultPreventor) => {
-                            navigator.clipboard.writeText(window.location.href);
-                            toast({
-                                description: "Link copied to clipboard!",
-                            });
-                            e.preventDefault();
-                        }}
-                        className="absolute top-4 right-0 max-w-32"
-                    >
-                        Share Report
-                    </Button>
+                    {text && (
+                        <Button
+                            variant="default"
+                            onClick={(e: DefaultPreventor) => {
+                                navigator.clipboard.writeText(
+                                    window.location.href,
+                                );
+                                toast({
+                                    description: "Link copied to clipboard!",
+                                });
+                                e.preventDefault();
+                            }}
+                            className="absolute top-4 right-0 max-w-32"
+                        >
+                            Share Report
+                        </Button>
+                    )}
                     <Suspense fallback={null}>
                         <ComponentLoader
                             loader={parserLoader}
