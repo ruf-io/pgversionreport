@@ -82,7 +82,7 @@ function MainView() {
                     <>
                         <div className="flex flex-col gap-2 text-center">
                             <h1 className="text-4xl font-extrabold font-title tracking-tight">
-                                <a href="/">PG Version Report</a>
+                                PG Version Report
                             </h1>
                             <p className="text-sm text-muted-foreground">
                                 Plug in your Postgres version to see what you're
@@ -110,9 +110,9 @@ function MainView() {
                     </>
                 ) : (
                     <div className="flex flex-col gap-2 text-left mt-20">
-                        <span className="text-2xl text-muted-foreground font-extrabold font-title tracking-tight">
+                        <a href="/" className="text-2xl text-muted-foreground font-extrabold font-title tracking-tight">
                             PG Version Report
-                        </span>
+                        </a>
                     </div>
                 )}
                 <form>
