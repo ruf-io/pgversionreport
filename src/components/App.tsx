@@ -82,7 +82,7 @@ function MainView() {
                     <>
                         <div className="flex flex-col gap-2 text-center">
                             <h1 className="text-4xl font-extrabold font-title tracking-tight">
-                                PG Version Report
+                                <a href="/">PG Version Report</a>
                             </h1>
                             <p className="text-sm text-muted-foreground">
                                 Plug in your Postgres version to see what you're
