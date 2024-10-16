@@ -136,9 +136,11 @@ export default function VersionMapCard({ data }: { data: Data }) {
                     versions behind and{" "}
                     <InlineCode>{majorVersionsBehind}</InlineCode> major
                     versions behind.
-                    <Button variant="link" className="">
+                    <a href="#how-to-upgrade">
+                    <Button variant="link">
                         Learn how to upgrade.
                     </Button>
+                    </a>
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex gap-4 p-4">

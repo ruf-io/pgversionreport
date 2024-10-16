@@ -8,6 +8,12 @@ export default function HowToUpgrade() {
             </p>
             <ul>
                 <li>
+                    <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html">AWS RDS Postgres</a>
+                </li>
+                <li>
+                    <a href="https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version-inplace">Google Cloud SQL Postgres</a>
+                </li>
+                <li>
                     <a href="https://neon.tech/blog/postgres-17">Neon</a>
                 </li>
                 <li>
@@ -26,12 +32,7 @@ export default function HowToUpgrade() {
                     </a>
                 </li>
                 <li>
-                    <a href="https://xata.io/docs/postgres">Xata</a> (The
-                    Postgres version depends on your deployment and plan. In a
-                    shared cluster, you operate in a multi tenant environment,
-                    sharing the same Postgres version. Minor version upgrades
-                    are continuously updated. If you want control of the
-                    version, you should consider a dedicated cluster.)
+                    <a href="https://xata.io/docs/postgres">Xata</a>
                 </li>
             </ul>
 

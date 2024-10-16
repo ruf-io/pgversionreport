@@ -125,7 +125,7 @@ export default function Parser({ text }: { text: string }) {
     let majorVersionsBehind = 0;
     if (versionIndex !== -1) {
         // Handle semver.
-        let versionsAfter = sortedVersions.slice(versionIndex + 1);
+        let versionsAfter = sortedVersions.slice(versionIndex);
         const majors = versionsAfter.filter((version) => {
             return (
                 version[0].major !== result.version.major &&

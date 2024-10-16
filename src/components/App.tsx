@@ -196,12 +196,12 @@ function MainView() {
                                     variant="outline"
                                     onClick={() => {
                                         const version =
-                                            "PostgreSQL 15.5 on x86_64-pc-linux-gnu, compiled by Debian clang version 12.0.1, 64-bit";
+                                            " PostgreSQL 16.4 on x86_64-pc-linux-gnu, compiled by Debian clang version 12.0.1, 64-bit";
                                         setText(version);
-                                        query.version = "15.5";
+                                        query.version = "16.4";
                                     }}
                                 >
-                                    AlloyDB (15)
+                                    CloudSQL (16)
                                 </Button>
                                 <Button
                                     size="badge"
