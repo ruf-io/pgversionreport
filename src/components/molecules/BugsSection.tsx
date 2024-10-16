@@ -14,18 +14,20 @@ type Props = {
 
 export default function BugsSection({ bugs, version }: Props) {
     return (
-        <div className="relative">
-            <hr />
+        <div className="relative mt-8">
             <div className="flex items-center mt-4 gap-2">
                 <Bug className="h-6 w-6 text-foreground" />
                 <Badge variant="secondary">{bugs.length} Bugs</Badge>
             </div>
             <Panel
                 title={`Bugs`}
-                description={`Contributors patched ${bugs.length} bugs in Postgres after ${version.major}.${version.minor}`}
+                description={bugs.length > 0 ? `Contributors patched ${bugs.length} bugs in Postgres after ${version.major}.${version.minor}` : 'All (known) bugs have been fixed in your version!'}
                 size="secondary"
             >
+                {bugs.length > 0 && (
+                    
                 <BugsDataTable data={bugs} version={version} />
+                )}
             </Panel>
         </div>
     );

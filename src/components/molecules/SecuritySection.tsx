@@ -14,18 +14,19 @@ type Props = {
 
 export default function SecuritySection({ cves, version }: Props) {
     return (
-        <div className="relative">
-            <hr />
+        <div className="relative mt-8">
             <div className="flex items-center mt-4 gap-2">
                 <Siren className="h-6 w-6 text-foreground" />
                 <Badge variant="secondary">{cves.length} CVEs</Badge>
             </div>
             <Panel
                 title={`Security Issues (CVEs)`}
-                description={`Contributors found and fixed ${cves.length} CVEs in Postgres after ${version.major}.${version.minor}`}
+                description={cves.length > 0 ? `Contributors found and fixed ${cves.length} CVEs in Postgres after ${version.major}.${version.minor}` :  'All (known) CVEs have been patched in your version!'}
                 size="secondary"
             >
-                <SecurityDataTable data={cves} version={version} />
+                {cves.length > 0 && (
+                    <SecurityDataTable data={cves} version={version} />
+                )}
             </Panel>
         </div>
     );

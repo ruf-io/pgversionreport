@@ -13,16 +13,6 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ExternalLink, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
     Table,
@@ -94,7 +84,12 @@ export function PerformanceDataTable({ data, version }: Props) {
         {},
     );
     const [rowSelection, setRowSelection] = useState({});
-
+    const [pagination, setPagination] = useState(
+        {
+            pageIndex: 0, //initial page index
+            pageSize: 100, //default page size
+          }
+    );
     const table = useReactTable({
         data,
         columns,
@@ -111,6 +106,7 @@ export function PerformanceDataTable({ data, version }: Props) {
             columnFilters,
             columnVisibility,
             rowSelection,
+            pagination,
         },
     });
 

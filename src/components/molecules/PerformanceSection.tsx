@@ -17,8 +17,7 @@ export default function PerformanceSection({
     version,
 }: Props) {
     return (
-        <div className="relative">
-            <hr />
+        <div className="relative mt-8">
             <div className="flex items-center mt-4 gap-2">
                 <CircleGauge className="h-6 w-6 text-foreground" />
                 <Badge variant="secondary">
@@ -27,13 +26,14 @@ export default function PerformanceSection({
             </div>
             <Panel
                 title={`Performance Improvements`}
-                description={`Contributors shipped ${performanceImprovements.length} performance improvements in Postgres after ${version.major}.${version.minor}`}
+                description={performanceImprovements.length > 0 ? `Contributors shipped ${performanceImprovements.length} performance improvements in Postgres after ${version.major}.${version.minor}` : 'Your version is not missing out on any performance improvements!'} 
                 size="secondary"
             >
+                {performanceImprovements.length > 0 && (
                 <PerformanceDataTable
                     data={performanceImprovements}
                     version={version}
-                />
+                />)}
             </Panel>
         </div>
     );

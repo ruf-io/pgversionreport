@@ -2,6 +2,7 @@ import data from "@/data/pg_release_data";
 import {
     ColumnDef,
     ColumnFiltersState,
+    PaginationOptions,
     SortingState,
     VisibilityState,
     flexRender,
@@ -13,16 +14,6 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ExternalLink, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
     Table,
@@ -94,7 +85,12 @@ export function FeaturesDataTable({ data, version }: Props) {
         {},
     );
     const [rowSelection, setRowSelection] = useState({});
-
+    const [pagination, setPagination] = useState(
+        {
+            pageIndex: 0, //initial page index
+            pageSize: 100, //default page size
+          }
+    );
     const table = useReactTable({
         data,
         columns,
@@ -111,6 +107,7 @@ export function FeaturesDataTable({ data, version }: Props) {
             columnFilters,
             columnVisibility,
             rowSelection,
+            pagination,
         },
     });
 
