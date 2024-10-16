@@ -14,7 +14,10 @@ export default function HowToUpgrade() {
                     <a href="https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version-inplace">Google Cloud SQL Postgres</a>
                 </li>
                 <li>
-                    <a href="https://neon.tech/blog/postgres-17">Neon</a>
+                    <a href="https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases">Heroku Postgres</a>
+                </li>
+                <li>
+                    <a href="https://neon.tech/docs/postgresql/postgres-upgrade">Neon</a>
                 </li>
                 <li>
                     <a href="https://supabase.com/docs/guides/platform/migrating-and-upgrading-projects">
