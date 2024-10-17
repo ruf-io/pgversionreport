@@ -84,12 +84,10 @@ export function PerformanceDataTable({ data, version }: Props) {
         {},
     );
     const [rowSelection, setRowSelection] = useState({});
-    const [pagination, setPagination] = useState(
-        {
-            pageIndex: 0, //initial page index
-            pageSize: 100, //default page size
-          }
-    );
+    const [pagination, setPagination] = useState({
+        pageIndex: 0, //initial page index
+        pageSize: 100, //default page size
+    });
     const table = useReactTable({
         data,
         columns,

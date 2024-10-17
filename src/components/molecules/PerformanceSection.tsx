@@ -26,14 +26,19 @@ export default function PerformanceSection({
             </div>
             <Panel
                 title={`Performance Improvements`}
-                description={performanceImprovements.length > 0 ? `Contributors shipped ${performanceImprovements.length} performance improvements in Postgres after ${version.major}.${version.minor}` : 'Your version is not missing out on any performance improvements!'} 
+                description={
+                    performanceImprovements.length > 0
+                        ? `Contributors shipped ${performanceImprovements.length} performance improvements in Postgres after ${version.major}.${version.minor}`
+                        : "Your version is not missing out on any performance improvements!"
+                }
                 size="secondary"
             >
                 {performanceImprovements.length > 0 && (
-                <PerformanceDataTable
-                    data={performanceImprovements}
-                    version={version}
-                />)}
+                    <PerformanceDataTable
+                        data={performanceImprovements}
+                        version={version}
+                    />
+                )}
             </Panel>
         </div>
     );

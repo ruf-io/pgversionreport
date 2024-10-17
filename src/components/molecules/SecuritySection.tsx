@@ -21,7 +21,11 @@ export default function SecuritySection({ cves, version }: Props) {
             </div>
             <Panel
                 title={`Security Issues (CVEs)`}
-                description={cves.length > 0 ? `Contributors found and fixed ${cves.length} CVEs in Postgres after ${version.major}.${version.minor}` :  'All (known) CVEs have been patched in your version!'}
+                description={
+                    cves.length > 0
+                        ? `Contributors found and fixed ${cves.length} CVEs in Postgres after ${version.major}.${version.minor}`
+                        : "All (known) CVEs have been patched in your version!"
+                }
                 size="secondary"
             >
                 {cves.length > 0 && (

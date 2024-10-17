@@ -21,12 +21,15 @@ export default function BugsSection({ bugs, version }: Props) {
             </div>
             <Panel
                 title={`Bugs`}
-                description={bugs.length > 0 ? `Contributors patched ${bugs.length} bugs in Postgres after ${version.major}.${version.minor}` : 'All (known) bugs have been fixed in your version!'}
+                description={
+                    bugs.length > 0
+                        ? `Contributors patched ${bugs.length} bugs in Postgres after ${version.major}.${version.minor}`
+                        : "All (known) bugs have been fixed in your version!"
+                }
                 size="secondary"
             >
                 {bugs.length > 0 && (
-                    
-                <BugsDataTable data={bugs} version={version} />
+                    <BugsDataTable data={bugs} version={version} />
                 )}
             </Panel>
         </div>

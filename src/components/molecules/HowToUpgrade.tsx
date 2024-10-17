@@ -8,16 +8,24 @@ export default function HowToUpgrade() {
             </p>
             <ul>
                 <li>
-                    <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html">AWS RDS Postgres</a>
+                    <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html">
+                        AWS RDS Postgres
+                    </a>
                 </li>
                 <li>
-                    <a href="https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version-inplace">Google Cloud SQL Postgres</a>
+                    <a href="https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version-inplace">
+                        Google Cloud SQL Postgres
+                    </a>
                 </li>
                 <li>
-                    <a href="https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases">Heroku Postgres</a>
+                    <a href="https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases">
+                        Heroku Postgres
+                    </a>
                 </li>
                 <li>
-                    <a href="https://neon.tech/docs/postgresql/postgres-upgrade">Neon</a>
+                    <a href="https://neon.tech/docs/postgresql/postgres-upgrade">
+                        Neon
+                    </a>
                 </li>
                 <li>
                     <a href="https://supabase.com/docs/guides/platform/migrating-and-upgrading-projects">

@@ -21,10 +21,16 @@ export default function FeaturesSection({ features, version }: Props) {
             </div>
             <Panel
                 title={`Features`}
-                description={features.length > 0 ? `Contributors added ${features.length} new features to Postgres after ${version.major}.${version.minor}` : 'Your version is not missing out on any new features!'}
+                description={
+                    features.length > 0
+                        ? `Contributors added ${features.length} new features to Postgres after ${version.major}.${version.minor}`
+                        : "Your version is not missing out on any new features!"
+                }
                 size="secondary"
             >
-                {features.length > 0 && (<FeaturesDataTable data={features} version={version} />)}
+                {features.length > 0 && (
+                    <FeaturesDataTable data={features} version={version} />
+                )}
             </Panel>
         </div>
     );

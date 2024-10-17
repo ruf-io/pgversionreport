@@ -137,9 +137,7 @@ export default function VersionMapCard({ data }: { data: Data }) {
                     <InlineCode>{majorVersionsBehind}</InlineCode> major
                     versions behind.
                     <a href="#how-to-upgrade">
-                    <Button variant="link">
-                        Learn how to upgrade.
-                    </Button>
+                        <Button variant="link">Learn how to upgrade.</Button>
                     </a>
                 </CardDescription>
             </CardHeader>
