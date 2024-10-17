@@ -42,7 +42,7 @@ export default function Paginator({ table }: Props) {
                     {table.getPageCount().toLocaleString()}
                 </strong>
             </span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 hidden md:block">
                 | Go to page:
                 <input
                     type="number"

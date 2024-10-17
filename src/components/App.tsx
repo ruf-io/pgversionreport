@@ -342,7 +342,7 @@ function MainView() {
                                 });
                                 e.preventDefault();
                             }}
-                            className="absolute top-4 right-0 max-w-32"
+                            className="hidden md:block absolute top-4 right-0 max-w-32"
                         >
                             Share Report
                         </Button>
@@ -369,7 +369,7 @@ function MainView() {
 
 export default function App() {
     return (
-        <div className="bg-slate-500/10">
+        <div className="bg-slate-500/10 mx-4">
             <MainView />
             <Toaster />
         </div>
