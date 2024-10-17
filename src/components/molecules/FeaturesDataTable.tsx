@@ -28,6 +28,7 @@ import Semver from "@/utils/Semver";
 import MarkdownBlock from "../atoms/MarkdownBlock";
 import InlineCode from "../atoms/InlineCode";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
+import Paginator from "../atoms/Paginator";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type Features = PromiseResolver<typeof data>["features"];
@@ -85,10 +86,6 @@ export function FeaturesDataTable({ data, version }: Props) {
         {},
     );
     const [rowSelection, setRowSelection] = useState({});
-    const [pagination, setPagination] = useState({
-        pageIndex: 0, //initial page index
-        pageSize: 100, //default page size
-    });
     const table = useReactTable({
         data,
         columns,
@@ -100,12 +97,17 @@ export function FeaturesDataTable({ data, version }: Props) {
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        initialState: {
+            pagination: {
+                pageIndex: 0,
+                pageSize: 10,
+            },
+        },
         state: {
             sorting,
             columnFilters,
             columnVisibility,
             rowSelection,
-            pagination,
         },
     });
 
@@ -179,6 +181,7 @@ export function FeaturesDataTable({ data, version }: Props) {
                         )}
                     </TableBody>
                 </Table>
+                <Paginator table={table} />
             </div>
         </div>
     );

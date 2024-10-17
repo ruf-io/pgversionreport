@@ -38,6 +38,7 @@ import Semver from "@/utils/Semver";
 import MarkdownBlock from "../atoms/MarkdownBlock";
 import InlineCode from "../atoms/InlineCode";
 import { generatePgDeepLink } from "@/utils/pgDeepLinks";
+import Paginator from "../atoms/Paginator";
 
 type PromiseResolver<T> = T extends Promise<infer U> ? U : never;
 type CVEs = PromiseResolver<typeof data>["security"];
@@ -196,10 +197,6 @@ export function SecurityDataTable({ data, version }: Props) {
         {},
     );
     const [rowSelection, setRowSelection] = useState({});
-    const [pagination, setPagination] = useState({
-        pageIndex: 0, //initial page index
-        pageSize: 100, //default page size
-    });
 
     const table = useReactTable({
         data,
@@ -212,12 +209,17 @@ export function SecurityDataTable({ data, version }: Props) {
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        initialState: {
+            pagination: {
+                pageIndex: 0,
+                pageSize: 10,
+            },
+        },
         state: {
             sorting,
             columnFilters,
             columnVisibility,
             rowSelection,
-            pagination,
         },
     });
 
@@ -291,6 +293,7 @@ export function SecurityDataTable({ data, version }: Props) {
                         )}
                     </TableBody>
                 </Table>
+                <Paginator table={table} />
             </div>
         </div>
     );

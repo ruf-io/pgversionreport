@@ -31,6 +31,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { CollapsibleDataItem } from "@/components/atoms/CollapsibleDataItem";
+import Paginator from "../atoms/Paginator";
 
 const data: Payment[] = [
     {
@@ -166,6 +167,12 @@ export function DataTable() {
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        initialState: {
+            pagination: {
+                pageIndex: 0,
+                pageSize: 10,
+            },
+        },
         state: {
             sorting,
             columnFilters,
@@ -244,6 +251,7 @@ export function DataTable() {
                         )}
                     </TableBody>
                 </Table>
+                <Paginator table={table} />
             </div>
         </div>
     );
