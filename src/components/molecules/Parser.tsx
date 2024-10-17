@@ -76,6 +76,18 @@ export default function Parser({ text }: { text: string }) {
     // Defines the release data.
     const [loadedData, setLoadedData] = useState<ResolvedData | null>(null);
 
+    // Make sure we jump to the hash when everything loads.
+    useEffect(() => {
+        if (!loadedData) return;
+        if (window.location.hash) {
+            const id = window.location.hash.slice(1);
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView();
+            }
+        }
+    }, [loadedData]);
+
     // Load the release data.
     useEffect(() => {
         data.then((result) => {

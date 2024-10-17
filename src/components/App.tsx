@@ -45,8 +45,7 @@ class DataQuery {
         } else {
             this.url.searchParams.delete("version");
         }
-        //window.history.pushState({ version }, "", this.url.toString());
-        window.history.pushState({}, "", this.url.toString());
+        window.history.pushState({ version }, "", this.url.toString());
     }
 }
 
@@ -64,19 +63,38 @@ function MainView() {
             setText(`PostgreSQL ${query.version}`);
         }
 
+        // On load, replace the state with the current state. I know, this is very weird, but
+        // we do this because we want to distinguish hash navigation from the back button.
+        window.history.replaceState({ version: query.version }, "");
+
         // Handle the state change when the user navigates back.
-        // const ln = (e: PopStateEvent) => {
-        //     const state = e.state as { version: string };
-        //     if (state?.version) {
-        //         setText(`PostgreSQL ${state.version}`);
-        //     } else {
-        //         setText("");
-        //     }
-        // };
-        // window.addEventListener("popstate", ln);
-        // return () => {
-        //     window.removeEventListener("popstate", ln);
-        // };
+        const ln = (e: PopStateEvent) => {
+            // Handle the query hash.
+            if (window.location.hash) {
+                const hash = window.location.hash.slice(1);
+                const el = document.getElementById(hash);
+                if (el) {
+                    el.scrollIntoView();
+                }
+            }
+
+            // Handle the state of the version.
+            const state = e.state as { version: string };
+            if (!state) {
+                // This is query hash navigation. State is unaffected.
+                return;
+            }
+            if (state.version) {
+                setText(`PostgreSQL ${state.version}`);
+                query.version = state.version;
+            } else {
+                setText("");
+            }
+        };
+        window.addEventListener("popstate", ln);
+        return () => {
+            window.removeEventListener("popstate", ln);
+        };
     }, []);
 
     // Return the textbox and the parsing result.
