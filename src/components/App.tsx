@@ -45,7 +45,7 @@ class DataQuery {
         } else {
             this.url.searchParams.delete("version");
         }
-        window.history.replaceState({}, "", this.url.toString());
+        window.history.pushState({ version }, "", this.url.toString());
     }
 }
 
@@ -56,12 +56,22 @@ function MainView() {
     const [text, setText] = useState("");
     const { toast } = useToast();
 
-    // Handle the component mounting and the window hash.
+    // Handle the component mounting and the version query.
     useEffect(() => {
         if (query.version) {
             // Set the text to a partial version string. This allows us to DRY the code a bit.
             setText(`PostgreSQL ${query.version}`);
         }
+
+        // Handle the state change when the user navigates back.
+        window.addEventListener("popstate", (e) => {
+            const state = e.state as { version: string };
+            if (state?.version) {
+                setText(`PostgreSQL ${state.version}`);
+            } else {
+                setText("");
+            }
+        });
     }, []);
 
     // Return the textbox and the parsing result.
