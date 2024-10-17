@@ -45,7 +45,8 @@ class DataQuery {
         } else {
             this.url.searchParams.delete("version");
         }
-        window.history.pushState({ version }, "", this.url.toString());
+        //window.history.pushState({ version }, "", this.url.toString());
+        window.history.pushState({}, "", this.url.toString());
     }
 }
 
@@ -64,18 +65,18 @@ function MainView() {
         }
 
         // Handle the state change when the user navigates back.
-        const ln = (e: PopStateEvent) => {
-            const state = e.state as { version: string };
-            if (state?.version) {
-                setText(`PostgreSQL ${state.version}`);
-            } else {
-                setText("");
-            }
-        };
-        window.addEventListener("popstate", ln);
-        return () => {
-            window.removeEventListener("popstate", ln);
-        };
+        // const ln = (e: PopStateEvent) => {
+        //     const state = e.state as { version: string };
+        //     if (state?.version) {
+        //         setText(`PostgreSQL ${state.version}`);
+        //     } else {
+        //         setText("");
+        //     }
+        // };
+        // window.addEventListener("popstate", ln);
+        // return () => {
+        //     window.removeEventListener("popstate", ln);
+        // };
     }, []);
 
     // Return the textbox and the parsing result.
