@@ -298,7 +298,19 @@ function MainView() {
                                             query.version = "15.5";
                                         }}
                                     >
-                                        Xata
+                                        Xata (Shared Cluster)
+                                    </Button>
+                                    <Button
+                                        size="badge"
+                                        variant="outline"
+                                        onClick={() => {
+                                            const version =
+                                                "PostgreSQL 16.4 on aarch64-unknown-linux-gnu, compiled by aarch64-unknown-linux-gnu-gcc (GCC) 9.5.0, 64-bit";
+                                            setText(version);
+                                            query.version = "16.4";
+                                        }}
+                                    >
+                                        Xata (Dedicated Cluster)
                                     </Button>
                                     <Button
                                         size="badge"
