@@ -51,7 +51,7 @@ export const columns: ColumnDef<Bug>[] = [
                     <p>
                         Fixed in:{" "}
                         <InlineCode>{row.original.fixedIn}</InlineCode>{" "}
-                        {row.original.contributors.length && (
+                        {row.original.contributors.length > 0 && (
                             <span>
                                 Contributor
                                 {row.original.contributors.length > 1 &&

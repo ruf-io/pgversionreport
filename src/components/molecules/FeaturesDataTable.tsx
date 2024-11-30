@@ -52,7 +52,7 @@ export const columns: ColumnDef<Feature>[] = [
                     <p>
                         Shipped in:{" "}
                         <InlineCode>{row.original.sinceVersion}</InlineCode>{" "}
-                        {row.original.contributors.length && (
+                        {row.original.contributors.length > 0 && (
                             <span>
                                 Contributor
                                 {row.original.contributors.length > 1 &&
